@@ -1,6 +1,7 @@
 import type {
   Address,
   AssetId,
+  CapabilityFlags,
   ChainId,
   PortfolioSnapshot,
   TokenBalance,
@@ -9,7 +10,13 @@ import type {
 export type ChainSummary = {
   chainId: ChainId;
   displayName: string;
-  capabilities: any;
+  capabilities: CapabilityFlags;
+};
+
+export type Account = {
+  address: Address;
+  privateKey: Uint8Array;
+  publicKey: Uint8Array;
 };
 
 export interface Wallet {
@@ -19,7 +26,7 @@ export interface Wallet {
     mnemonic: string,
     selections: ChainId[],
     index?: number
-  ): Promise<Record<ChainId, { address: Address; derivationPath: string }>>;
+  ): Promise<Record<ChainId, Account>>;
 
   getSnapshot(chainId: ChainId, address: Address): Promise<PortfolioSnapshot>;
   getTokens?(

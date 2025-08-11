@@ -6,6 +6,7 @@ import type {
   PortfolioSnapshot,
   TokenBalance,
 } from "@ned-finance/wallet-core";
+import { getBase58Codec } from "@solana/codecs-strings";
 
 export const SOLANA_CHAIN_ID = "solana" as const;
 export type SolanaChainId = typeof SOLANA_CHAIN_ID;
@@ -14,8 +15,8 @@ export const SOLANA_DERIVATION = {
   curve: "ed25519" as const,
   path: (i: number) => `m/44'/501'/${i}'/0'`,
   pubToAddress: (pub: Uint8Array) => {
-    // mock readable address (replace with bs58 in real impl)
-    return "So" + Buffer.from(pub).toString("hex").slice(0, 30);
+    const codec = getBase58Codec();
+    return codec.decode(pub);
   },
 };
 
