@@ -1,0 +1,34 @@
+SOFTWARE LICENSE AGREEMENT – Ned Wallet 
+
+Copyright © 2025 Ned Finance
+
+All rights reserved.
+
+1. DEFINITIONS
+   "Software" refers to the source code, binaries, documentation, design, UI components, and any related files of the Ned Wallet project.
+   "You" refers to any individual or entity accessing, viewing, or interacting with the Software.
+
+2. PERMITTED USES
+   - You may view and read the Software for personal, educational, or research purposes only.
+   - You may audit the Software for security review and transparency purposes.
+
+3. RESTRICTIONS
+   Unless you have obtained prior written permission from the copyright holder:
+   - You may NOT use the Software, in whole or in part, for any commercial purpose.
+   - You may NOT modify, adapt, translate, reverse-engineer, decompile, or create derivative works based on the Software.
+   - You may NOT redistribute, sublicense, sell, or host the Software or any modified version of it.
+   - You may NOT integrate the Software into other applications, products, or services.
+
+4. OWNERSHIP
+   This Software is licensed, not sold. The copyright holder retains all rights, title, and interest in and to the Software.
+
+5. DISCLAIMER OF WARRANTY
+   The Software is provided “AS IS” without warranty of any kind, express or implied. Use at your own risk.
+
+6. LIMITATION OF LIABILITY
+   In no event shall the copyright holder be liable for any damages arising from the use or inability to use the Software.
+
+7. TERMINATION
+   This license will automatically terminate if you breach any of its terms. Upon termination, you must immediately cease all use of the Software.
+
+For permission requests, please contact: marco@ned.finance

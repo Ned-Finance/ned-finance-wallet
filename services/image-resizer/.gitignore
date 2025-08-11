@@ -1,0 +1,19 @@
+# Compiled JavaScript files
+lib/**/*.js
+lib/**/*.js.map
+lib/**/*.d
+lib/**/*.d.map
+
+# TypeScript v1 declaration files
+typings/
+
+# Node.js dependency directory
+node_modules/
+
+tsconfig.tsbuildinfo
+
+env.prod.yaml
+
+isolate
+
+ned-wallet-firebase-admin.json

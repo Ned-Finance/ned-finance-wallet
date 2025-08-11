@@ -1,0 +1,8 @@
+{
+  "auth": {
+    "register": {
+      "title": "I’m a new user",
+      "description": "Keep this words in a safe place, you are not going to see them again in this app."
+    }
+  }
+}

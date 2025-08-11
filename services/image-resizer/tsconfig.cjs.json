@@ -1,0 +1,10 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "@ned-finance/wallet",
+  "extends": "../tsconfig/tsconfig.cjs.json",
+  "compilerOptions": {
+    "outDir": "./dist/cjs/",
+    "rootDir": "./src"
+  },
+  "include": ["./src/**/*"]
+}

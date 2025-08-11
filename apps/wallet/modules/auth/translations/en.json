@@ -1,0 +1,42 @@
+{
+  "auth": {
+    "index": {
+      "button": {
+        "login": "I have a wallet",
+        "register": "I’m a new user"
+      }
+    },
+    "register": {
+      "button": {
+        "register": "I’m a new user",
+        "copyMnemonic": "Copy",
+        "continueToPin": "Let's secure your access"
+      },
+      "title": "I’m a new user",
+      "description": "Keep this words in a safe place, you are not going to see them again in this app."
+    },
+    "login": {
+      "title": "I have a wallet",
+      "description": "Enter your wallet mnemonic to continue",
+      "button": {
+        "pasteMnemonic": "Paste",
+        "continue": "Continue"
+      }
+    },
+    "securePasscode": {
+      "title": "Set a pin",
+      "titleConfirm": "Confirm your pin",
+      "description": "Create a passcode to secure your access to your wallet.",
+      "button": {
+        "done": "Done"
+      },
+      "errors": {
+        "passcodeMismatch": "Passcodes do not match"
+      }
+    },
+    "welcome": {
+      "title": "Well done!",
+      "description": "It was easy, right? Let's get started."
+    }
+  }
+}

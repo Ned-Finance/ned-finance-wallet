@@ -1,0 +1,21 @@
+{
+  "targetDefaults": {
+    "deploy": {
+      "cache": false,
+      "dependsOn": ["build"]
+    },
+    "build": {
+      "cache": true,
+      "dependsOn": ["^build"]
+    },
+    "test": {
+      "cache": true
+    },
+    "lint": {
+      "cache": true
+    }
+  },
+  "affected": {
+    "defaultBase": "main"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "search.exclude": {
+    "___mobile-app": true
+    // "packages/*/node_modules": true,
+    // "packages/*/dist": true,
+    // "packages/*[!tsconfig]*/tsconfig.*": true,
+    // "packages/*/.eslintrc.js": true,
+    // "packages/*/package-lock.json": true,
+    // "services/*/node_modules": true
+  }
+}
