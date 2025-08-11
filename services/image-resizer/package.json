@@ -14,10 +14,7 @@
     "dev": "nodemon src/index.ts"
   },
   "dependencies": {
-    "@ned-finance/constants": "workspace:*",
-    "@ned-finance/services-common": "workspace:*",
     "axios": "^1.6.2",
-    "build-scripts": "workspace:*",
     "express": "^4.18.2",
     "firebase-admin": "^11.8.0",
     "lodash": "^4.17.21",

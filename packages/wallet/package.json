@@ -1,5 +1,5 @@
 {
-  "name": "@ned-finance/wallet-orchestrator",
+  "name": "@ned-finance/wallet",
   "version": "0.1.0",
   "type": "module",
   "main": "dist/index.js",
@@ -8,7 +8,7 @@
     "build": "tsc -p tsconfig.json"
   },
   "dependencies": {
-    "@wallet/core": "workspace:*",
-    "@wallet/solana": "workspace:*"
+    "@ned-finance/wallet-core": "workspace:*",
+    "@ned-finance/wallet-solana": "workspace:*"
   }
 }

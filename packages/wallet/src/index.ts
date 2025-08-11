@@ -1,12 +1,17 @@
 import {
-  DerivationRegistry, deriveAddressFromMnemonic,
-  ChainId, Address, AssetId, PortfolioSnapshot, TokenBalance, ChainConnector
-} from "@wallet/core";
-import type { WalletOrchestrator, ChainSummary } from "./types";
+  Address,
+  AssetId,
+  ChainConnector,
+  ChainId,
+  DerivationRegistry,
+  deriveAddressFromMnemonic,
+  PortfolioSnapshot,
+} from "@ned-finance/wallet-core";
 import { CONNECTOR_LOADERS } from "./plugins";
-import { LocalSignerProvider, AccountRecord } from "./signers";
+import { AccountRecord, LocalSignerProvider } from "./signers";
+import type { ChainSummary, Wallet } from "./types";
 
-export class DefaultWalletOrchestrator implements WalletOrchestrator {
+export class DefaultWallet implements Wallet {
   private reg = new DerivationRegistry();
   private connectors = new Map<string, ChainConnector>();
   private accounts: Record<string, AccountRecord> = {};
@@ -14,8 +19,8 @@ export class DefaultWalletOrchestrator implements WalletOrchestrator {
 
   async listChains(): Promise<ChainSummary[]> {
     const keys = Object.keys(CONNECTOR_LOADERS) as ChainId[];
-    const metas = await Promise.all(keys.map(k => CONNECTOR_LOADERS[k]()));
-    return metas.map(m => ({
+    const metas = await Promise.all(keys.map((k) => CONNECTOR_LOADERS[k]()));
+    return metas.map((m) => ({
       chainId: m.chainId,
       displayName: m.displayName,
       capabilities: this.connectors.get(m.chainId)?.capabilities ?? {},
@@ -29,43 +34,78 @@ export class DefaultWalletOrchestrator implements WalletOrchestrator {
     const mod = await loader();
     this.reg.add(mod.chainId, mod.derivation);
     const conn: ChainConnector = mod.create();
-    if (conn.chainId !== mod.chainId) throw new Error("Connector chainId mismatch");
+    if (conn.chainId !== mod.chainId)
+      throw new Error("Connector chainId mismatch");
     this.connectors.set(chainId, conn);
   }
 
   async deriveFromMnemonic(mnemonic: string, selections: ChainId[], index = 0) {
-    await Promise.all(selections.map(c => this.ensureLoaded(c)));
+    await Promise.all(selections.map((c) => this.ensureLoaded(c)));
     const entries = await Promise.all(
-      selections.map(async chainId => {
-        const r = await deriveAddressFromMnemonic(this.reg, mnemonic, chainId, index);
+      selections.map(async (chainId) => {
+        const r = await deriveAddressFromMnemonic(
+          this.reg,
+          mnemonic,
+          chainId,
+          index
+        );
         const accountId = `${chainId}:${index}`;
         this.accounts[accountId] = { chainId, address: r.address };
-        return [chainId, { address: r.address, derivationPath: r.derivationPath }] as const;
+        return [
+          chainId,
+          { address: r.address, derivationPath: r.derivationPath },
+        ] as const;
       })
     );
-    return Object.fromEntries(entries) as Record<ChainId, { address: Address; derivationPath: string }>;
+    return Object.fromEntries(entries) as Record<
+      ChainId,
+      { address: Address; derivationPath: string }
+    >;
   }
 
-  async getSnapshot(chainId: ChainId, address: Address): Promise<PortfolioSnapshot> {
+  async getSnapshot(
+    chainId: ChainId,
+    address: Address
+  ): Promise<PortfolioSnapshot> {
     await this.ensureLoaded(chainId);
     const c = this.connectors.get(chainId)!;
     return c.getSnapshot({ address, include: { tokens: true, nfts: true } });
   }
 
-  async getTokens(chainId: ChainId, p: { address: Address; cursor?: string; limit?: number; updatedAfter?: number }) {
+  async getTokens(
+    chainId: ChainId,
+    p: {
+      address: Address;
+      cursor?: string;
+      limit?: number;
+      updatedAfter?: number;
+    }
+  ) {
     await this.ensureLoaded(chainId);
     const c: any = this.connectors.get(chainId)!;
     if (!c.getTokens) throw new Error("getTokens not supported");
     return c.getTokens(p);
   }
 
-  async buildTransfer(chainId: ChainId, p: { from: Address; to: Address; assetId: AssetId; amount: bigint; memo?: string }) {
+  async buildTransfer(
+    chainId: ChainId,
+    p: {
+      from: Address;
+      to: Address;
+      assetId: AssetId;
+      amount: bigint;
+      memo?: string;
+    }
+  ) {
     await this.ensureLoaded(chainId);
     const c = this.connectors.get(chainId)!;
     return c.buildTransfer(p);
   }
 
-  async estimateFees(chainId: ChainId, p: { unsignedTx: Uint8Array; priority?: "low" | "medium" | "high" }) {
+  async estimateFees(
+    chainId: ChainId,
+    p: { unsignedTx: Uint8Array; priority?: "low" | "medium" | "high" }
+  ) {
     await this.ensureLoaded(chainId);
     const c = this.connectors.get(chainId)!;
     return c.estimateFees(p);
@@ -85,15 +125,32 @@ export class DefaultWalletOrchestrator implements WalletOrchestrator {
 
   async signMessage(accountId: string, message: Uint8Array | string) {
     const signer = await this.signer.getSigner(accountId);
-    const bytes = typeof message === "string" ? new TextEncoder().encode(message) : message;
+    const bytes =
+      typeof message === "string" ? new TextEncoder().encode(message) : message;
     return signer.signMessage(bytes);
   }
 
   async submitTransfer(p: {
-    chainId: ChainId; fromAccountId: string; from: Address; to: Address; assetId: AssetId; amount: bigint; memo?: string; priority?: "low"|"medium"|"high";
+    chainId: ChainId;
+    fromAccountId: string;
+    from: Address;
+    to: Address;
+    assetId: AssetId;
+    amount: bigint;
+    memo?: string;
+    priority?: "low" | "medium" | "high";
   }) {
-    const { unsignedTx } = await this.buildTransfer(p.chainId, { from: p.from, to: p.to, assetId: p.assetId, amount: p.amount, memo: p.memo });
-    const { signedTx } = await self.signTransaction(p.fromAccountId, unsignedTx);
+    const { unsignedTx } = await this.buildTransfer(p.chainId, {
+      from: p.from,
+      to: p.to,
+      assetId: p.assetId,
+      amount: p.amount,
+      memo: p.memo,
+    });
+    const { signedTx } = await this.signTransaction(
+      p.fromAccountId,
+      unsignedTx
+    );
     return this.sendTransaction(p.chainId, signedTx);
   }
 }
