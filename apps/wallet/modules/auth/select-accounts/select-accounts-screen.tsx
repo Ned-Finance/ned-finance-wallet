@@ -41,7 +41,7 @@ export const AuthSelectAccountsScreen = () => {
       showBack={true}
       title={t("auth.selectAccounts.title")}>
       <View className="flex flex-1 items-center justify-center">
-        <Text className="text-ned-muted text-md mt-2">
+        <Text className="text-ned-muted text-md mt-2 w-full">
           {t("auth.selectAccounts.description")}
         </Text>
         <FlatList
@@ -51,6 +51,7 @@ export const AuthSelectAccountsScreen = () => {
             <ImportedAccount
               onPress={onAccountPress}
               address={item.address}
+              blockchainName={item.blockchainName}
               numberOfTransactions={item.numberOfTransactions}
               checked={item.checked}
             />

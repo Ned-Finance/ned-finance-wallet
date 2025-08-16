@@ -25,7 +25,7 @@ export const AuthSecurePasscodeScreen = () => {
   useEffect(() => {
     if (confirmPasscode.length === 4) {
       if (passcode === confirmPasscode) {
-        router.push("/(auth)/welcome");
+        router.push("/(auth)/success");
       } else {
         Toast.show({
           type: "error",
@@ -42,10 +42,10 @@ export const AuthSecurePasscodeScreen = () => {
       showBack={true}
       title={messages.title}>
       <View className="flex flex-1 items-center justify-center">
-        <Text className="text-ned-muted text-md mt-2">
+        <Text className="text-ned-muted text-md mt-2 w-full">
           {t("auth.securePasscode.description")}
         </Text>
-        <View className="flex flex-1 flex-row items-end w-full self-stretch">
+        <View className="flex flex-1 w-full">
           {passcode.length < 4 && (
             <CustomKeyboard
               onChange={setPasscode}

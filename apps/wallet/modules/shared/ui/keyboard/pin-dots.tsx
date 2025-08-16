@@ -6,7 +6,7 @@ export const PinDots: FC<PinDotsProps> = ({ repeat = 1, code }) => {
   const points = new Array(repeat).fill(null);
 
   return (
-    <View className="flex-row justify-center p-5">
+    <View className="flex-row justify-center p-5 flex-1 items-center">
       {points.map((_, index) => (
         <View
           key={index}

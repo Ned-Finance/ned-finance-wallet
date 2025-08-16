@@ -8,7 +8,7 @@ export const Pressable = ({ children, ...props }: PressableProps) => {
   return (
     <Animated.View
       style={{
-        opacity: isPressed ? 0.8 : 1,
+        opacity: isPressed ? 1 : 1,
         transitionProperty: "opacity",
         transitionDuration: "100ms",
       }}>
@@ -16,7 +16,7 @@ export const Pressable = ({ children, ...props }: PressableProps) => {
         {...props}
         onPressIn={() => setIsPressed(true)}
         onPressOut={() => setIsPressed(false)}
-        className="flex flex-1 flex-row items-center justify-between bg-ned-background-secondary rounded-2xl">
+        className="flex flex-1 flex-row items-center justify-between rounded-2xl">
         {children}
       </RNPressable>
     </Animated.View>

@@ -46,9 +46,6 @@ export const DetachedModal = ({
     [themeVars]
   );
 
-  // variables
-  const snapPoints = useMemo(() => ["35%"], []);
-
   useImperativeHandle(
     ref,
     () => ({
