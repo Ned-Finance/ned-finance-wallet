@@ -2,6 +2,8 @@ export type EvmCAIP2<T extends number = number> = `eip155:${T}`;
 export type SolanaId = "solana";
 export type ChainId = SolanaId | EvmCAIP2;
 
+export type BlockchainName = string;
+
 export type Address = string;
 export type AssetId = string;
 
@@ -13,10 +15,17 @@ export type TokenBalance = {
   updatedAt: number;
 };
 
+export type Account = {
+  chainId: ChainId;
+  address: Address;
+  privateKey: Uint8Array;
+  publicKey: Uint8Array;
+};
+
 export type NftItem = {
   assetId: AssetId;
-  tokenId?: string;   // EVM
-  mint?: string;      // Solana
+  tokenId?: string; // EVM
+  mint?: string; // Solana
   name?: string;
   mediaUrl?: string;
   updatedAt: number;
@@ -73,7 +82,12 @@ export type CapabilityFlags = {
 
 export type ChainUpdateEvent =
   | { type: "balance"; address: Address; assetId?: AssetId }
-  | { type: "transaction"; address: Address; txid: string; status?: "pending" | "confirmed" | "failed" }
+  | {
+      type: "transaction";
+      address: Address;
+      txid: string;
+      status?: "pending" | "confirmed" | "failed";
+    }
   | { type: "nft"; address: Address }
   | { type: "positions"; address: Address };
 
@@ -81,6 +95,7 @@ export type ChainUpdateEvent =
 export interface ChainConnector<K extends ChainId = ChainId> {
   readonly chainId: K;
   readonly capabilities: CapabilityFlags;
+  readonly name: BlockchainName;
 
   getSnapshot(params: {
     address: Address;
@@ -109,12 +124,20 @@ export interface ChainConnector<K extends ChainId = ChainId> {
   }): Promise<{ items: NftItem[]; cursor?: string; updatedAt: number }>;
 
   buildTransfer(params: {
-    from: Address; to: Address; assetId: AssetId; amount: bigint; memo?: string;
+    from: Address;
+    to: Address;
+    assetId: AssetId;
+    amount: bigint;
+    memo?: string;
   }): Promise<{ unsignedTx: Uint8Array }>;
 
   estimateFees(params: {
-    unsignedTx: Uint8Array; priority?: "low"|"medium"|"high";
-  }): Promise<{ maxFee?: string; suggestion?: Array<{ priority: "low"|"medium"|"high"; fee: string }> }>;
+    unsignedTx: Uint8Array;
+    priority?: "low" | "medium" | "high";
+  }): Promise<{
+    maxFee?: string;
+    suggestion?: Array<{ priority: "low" | "medium" | "high"; fee: string }>;
+  }>;
 
   sendTransaction(params: { signedTx: Uint8Array }): Promise<{ txid: string }>;
 }

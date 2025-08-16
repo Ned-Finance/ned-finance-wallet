@@ -1,4 +1,4 @@
-import { AuthRegisterScreen } from "@/modules/auth/screens/auth-register-screen";
+import { AuthRegisterScreen } from "@/modules/auth/register";
 
 export default function RegisterScreen() {
   return <AuthRegisterScreen />;

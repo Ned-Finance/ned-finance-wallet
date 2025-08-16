@@ -11,6 +11,9 @@ import { getBase58Codec } from "@solana/codecs-strings";
 export const SOLANA_CHAIN_ID = "solana" as const;
 export type SolanaChainId = typeof SOLANA_CHAIN_ID;
 
+export const SOLANA_BLOCKCHAIN_NAME = "Solana" as const;
+export type SolanaBlockchainName = typeof SOLANA_BLOCKCHAIN_NAME;
+
 export const SOLANA_DERIVATION = {
   curve: "ed25519" as const,
   path: (i: number) => `m/44'/501'/${i}'/0'`,
@@ -73,6 +76,7 @@ export function createSolanaConnector(_opts?: {
   return {
     chainId: SOLANA_CHAIN_ID,
     capabilities,
+    name: SOLANA_BLOCKCHAIN_NAME,
 
     async getSnapshot({
       address,

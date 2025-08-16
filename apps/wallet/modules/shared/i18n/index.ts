@@ -3,8 +3,8 @@ import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 
 // Import translations from each module
-import auth_en from "@/modules/auth/translations/en.json";
-import auth_es from "@/modules/auth/translations/es.json";
+import auth_en from "@/modules/auth/shared/translations/en.json";
+import auth_es from "@/modules/auth/shared/translations/es.json";
 
 // Merge module translations
 const resources = {

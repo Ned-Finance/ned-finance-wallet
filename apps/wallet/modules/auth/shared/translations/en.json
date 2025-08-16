@@ -34,9 +34,14 @@
         "passcodeMismatch": "Passcodes do not match"
       }
     },
-    "welcome": {
+    "success": {
       "title": "Well done!",
       "description": "It was easy, right? Let's get started."
+    },
+    "selectAccounts": {
+      "title": "Select your wallets",
+      "description": "Select the wallets you want to import to your wallet.",
+      "numberOfTransactions": "{{count}} transactions"
     }
   }
 }

@@ -1,12 +1,12 @@
 import { Button } from "@/modules/shared";
-import { Icon } from "@/modules/shared/ui/icons/icon";
+import { Icon } from "@/modules/shared/ui/icons";
 import { ScreenWrapper } from "@/modules/shared/ui/screen/screen-wrapper";
 import { useRouter } from "expo-router";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { Text, View } from "react-native";
 
-export const AuthWelcomeScreen = () => {
+export const AuthSuccessScreen = () => {
   const { t } = useTranslation();
   const router = useRouter();
 
@@ -25,10 +25,10 @@ export const AuthWelcomeScreen = () => {
       <View className="flex-1 items-center justify-center">
         <View className="flex-1 items-center justify-center">
           <Text className="text-white text-4xl mt-2">
-            {t("auth.welcome.title")}
+            {t("auth.success.title")}
           </Text>
           <Text className="text-white text-lg font-extralight mt-2 mb-4">
-            {t("auth.welcome.description")}
+            {t("auth.success.description")}
           </Text>
           <Button
             variant="ghost"

@@ -1,8 +1,8 @@
-import { AuthIndexActions } from "@/modules/auth/components/auth-index-actions";
 import { MediaRotator } from "@/modules/shared/ui/media-rotator/media-rotator";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { AuthIndexActions } from "./components/actions";
 
-export const AuthIndexScreen = () => {
+export const AuthWelcomeScreen = () => {
   return (
     <SafeAreaView className="flex-1">
       <MediaRotator

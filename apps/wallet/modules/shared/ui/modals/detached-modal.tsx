@@ -14,7 +14,7 @@ import React, {
 
 export type DetachedModalMethods = {
   present: (index?: number) => void;
-  close: () => void;
+  dismiss: () => void;
 };
 
 export type DetachedModalProps = {
@@ -55,8 +55,8 @@ export const DetachedModal = ({
       present: (index?: number) => {
         bottomSheetModalRef.current?.present(index);
       },
-      close: () => {
-        bottomSheetModalRef.current?.close();
+      dismiss: () => {
+        bottomSheetModalRef.current?.dismiss();
       },
     }),
     []
@@ -79,8 +79,6 @@ export const DetachedModal = ({
   return (
     <BottomSheetModal
       ref={bottomSheetModalRef}
-      snapPoints={snapPoints}
-      index={0}
       detached={true}
       bottomInset={25}
       enableDismissOnClose={enableDismissOnClose}
@@ -89,12 +87,22 @@ export const DetachedModal = ({
       showHandle={enablePanDownToClose}
       backgroundStyle={{
         backgroundColor: nedBackground,
+        flex: 1,
       }}
       handleIndicatorStyle={{
         backgroundColor: nedMuted,
       }}
-      className="mx-8">
-      <BottomSheetView className="p-4 text-ned-muted flex flex-1 h-full w-full">
+      style={{
+        marginHorizontal: 32,
+      }}>
+      <BottomSheetView
+        style={{
+          padding: 4,
+          flex: 1,
+          minHeight: 200,
+          height: "100%",
+          width: "100%",
+        }}>
         {children}
       </BottomSheetView>
     </BottomSheetModal>

@@ -47,11 +47,5 @@
     "@metaplex-foundation/mpl-bubblegum": "3.0.0",
     "@metaplex-foundation/mpl-token-metadata": "3.1.2",
     "@solana/spl-token": "0.3.9"
-  },
-  "pnpm": {
-    "patchedDependencies": {
-      "react-native-os@1.2.6": "patches/react-native-os@1.2.6.patch",
-      "@shopify/flash-list@1.4.3": "patches/@shopify__flash-list@1.4.3.patch"
-    }
   }
 }

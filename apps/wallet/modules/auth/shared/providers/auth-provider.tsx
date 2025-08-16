@@ -1,4 +1,4 @@
-import { useAuthStore } from "@/modules/auth/store/auth-store";
+import { useAuthStore } from "@/modules/auth/shared/store/auth-store";
 import { createContext, useContext } from "react";
 
 interface AuthContextType {

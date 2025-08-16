@@ -1,5 +1,3 @@
-console.log("=================", global.crypto);
-
 // /* eslint-disable import/no-unused-modules */
 // /* eslint-disable @typescript-eslint/no-unused-expressions */
 // import "react-native-get-random-values";

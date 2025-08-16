@@ -1,9 +1,9 @@
 // Initializations
 import "@/modules/shared/i18n";
-import "@/modules/shared/nativewind/interop";
+import "../modules/shared/nativewind/interop";
 
 import "@/assets/css/global.css";
-import { AuthProvider } from "@/modules/auth/providers/auth-provider";
+import { AuthProvider } from "@/modules/auth/shared/providers/auth-provider";
 import { toastConfig } from "@/modules/shared/utils/ui/toast";
 import { ThemeProvider } from "@/modules/user/preferences/providers/theme-provider";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";

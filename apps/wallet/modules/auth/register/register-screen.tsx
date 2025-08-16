@@ -1,5 +1,5 @@
 import { Button } from "@/modules/shared";
-import { Icon } from "@/modules/shared/ui/icons/icon";
+import { Icon } from "@/modules/shared/ui/icons";
 import { ScreenWrapper } from "@/modules/shared/ui/screen/screen-wrapper";
 import { useMnemonic } from "@/modules/wallet/hooks/useMnemonic";
 import { useRouter } from "expo-router";
