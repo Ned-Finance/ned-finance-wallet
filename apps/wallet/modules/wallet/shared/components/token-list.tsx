@@ -1,3 +1,4 @@
+import { PageSizeProps } from "@/modules/shared/ui/pager/pager.props";
 import { TokenBalance } from "@ned-finance/wallet";
 import { FlashList } from "@shopify/flash-list";
 import React from "react";
@@ -13,9 +14,11 @@ const DATA: TokenBalance[] = Array.from({ length: 300 }, (_, i) => ({
   amount: BigInt(i),
 }));
 
-export const TokenList = () => {
+export const TokenList = ({ height, width }: PageSizeProps) => {
+  console.log("height", height);
+  console.log("width", width);
   return (
-    <View className="flex-1 flex h-98">
+    <View style={{ height, width }}>
       <FlashList
         data={DATA}
         removeClippedSubviews

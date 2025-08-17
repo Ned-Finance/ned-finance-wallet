@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import { FlatList, useWindowDimensions, View } from "react-native";
 import Animated, {
   SharedValue,
@@ -9,13 +9,13 @@ import Animated, {
 import { Dot } from "./dot";
 import { Page, PagerProps } from "./pager.props";
 
-export const Pager = ({ pages }: PagerProps) => {
+export const Pager = ({ pages, showIndicator = true }: PagerProps) => {
   const { width } = useWindowDimensions();
-
-  console.log("width", width);
 
   const x = useSharedValue(0);
   const listRef = useRef<FlatList<Page>>(null);
+
+  const [height, setHeight] = useState(0);
 
   const onScroll = useAnimatedScrollHandler({
     onScroll: (e) => {
@@ -29,7 +29,7 @@ export const Pager = ({ pages }: PagerProps) => {
       return (
         <View
           className="flex-1"
-          style={{ width }}>
+          style={{ width, height }}>
           {/*
           Monta si la página está a ±1 del índice visible
           (FlatList ya virtualiza, esto es “extra perezoso” si tu contenido es pesado)
@@ -37,24 +37,28 @@ export const Pager = ({ pages }: PagerProps) => {
           <MaybeMount
             index={index}
             x={x}>
-            {item.component}
+            {typeof item.component === "function"
+              ? item.component({ height, width })
+              : item.component}
           </MaybeMount>
         </View>
       );
     },
-    [x, width]
+    [x, width, height]
   );
 
   return (
-    <View className="flex-1">
+    <View
+      className="flex-1"
+      onLayout={(event) => {
+        setHeight(event.nativeEvent.layout.height);
+      }}>
       <Animated.FlatList
-        className="flex-1 min-h-0"
         ref={listRef}
         data={pages}
         keyExtractor={(i) => i.key}
         renderItem={renderItem}
         horizontal
-        scrollEnabled={false}
         decelerationRate="fast"
         pagingEnabled
         directionalLockEnabled
@@ -71,22 +75,24 @@ export const Pager = ({ pages }: PagerProps) => {
       />
 
       {/* Indicador simple */}
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "center",
-          marginTop: 8,
-        }}>
-        {pages.map((_, i) => {
-          return (
-            <Dot
-              key={i}
-              index={i}
-              x={x}
-            />
-          );
-        })}
-      </View>
+      {showIndicator && (
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "center",
+            marginTop: 8,
+          }}>
+          {pages.map((_, i) => {
+            return (
+              <Dot
+                key={i}
+                index={i}
+                x={x}
+              />
+            );
+          })}
+        </View>
+      )}
     </View>
   );
 };
