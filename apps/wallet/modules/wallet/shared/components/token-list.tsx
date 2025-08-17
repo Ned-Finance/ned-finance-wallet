@@ -1,24 +1,13 @@
 import { PageSizeProps } from "@/modules/shared/ui/pager/pager.props";
-import { TokenBalance } from "@ned-finance/wallet";
 import { FlashList } from "@shopify/flash-list";
 import React from "react";
 import { View } from "react-native";
+import { useWallet } from "../hooks/use-wallet";
 import { TokenListItem } from "./token-list-item";
 
-const DATA: TokenBalance[] = Array.from({ length: 300 }, (_, i) => ({
-  token: {
-    address: `sol:token:${i}`,
-    symbol: `TOK ${i}`,
-    name: `Token ${i}`,
-    decimals: 9,
-    imageUrl: "https://placehold.co/150",
-  },
-  amount: BigInt(i * 1000000000),
-}));
-
 export const TokenList = ({ height, width }: PageSizeProps) => {
-  console.log("height", height);
-  console.log("width", width);
+  const { currentBalance } = useWallet();
+
   return (
     <View style={{ height, width }}>
       <FlashList

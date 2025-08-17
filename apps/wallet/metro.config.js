@@ -15,5 +15,15 @@ config.resolver.unstable_conditionNames = [
   "react-native",
   "default",
 ];
+config.resolver.sourceExts = [
+  "js",
+  "jsx",
+  "ts",
+  "tsx",
+  "native.ts",
+  "native.tsx",
+  "web.ts",
+  "web.tsx",
+];
 
 module.exports = withNativeWind(config, { input: "./assets/css/global.css" });

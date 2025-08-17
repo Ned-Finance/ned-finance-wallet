@@ -5,7 +5,6 @@ const storage = new MMKV({
   id: "ned-wallet-storage",
 });
 
-// Storage adapter usando createJSONStorage para type safety
 export const mmkvStorage = createJSONStorage(() => ({
   getItem: (name: string) => {
     const value = storage.getString(name);

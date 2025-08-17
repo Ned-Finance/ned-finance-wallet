@@ -8,6 +8,13 @@ import TabBarBackground from "@/components/ui/TabBarBackground";
 import { PricingRefresher } from "@/modules/pricing";
 
 export default function TabLayout() {
+  // useEffect(() => {
+
+  //   if (fiatRates) {
+  //     console.log("fiatRates", fiatRates);
+  //   }
+  // }, [fiatRates]);
+
   return (
     <>
       <PricingRefresher />

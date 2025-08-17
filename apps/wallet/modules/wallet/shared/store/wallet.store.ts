@@ -1,5 +1,5 @@
 import { STORE_NAME } from "@/constants";
-import { mmkvStorage } from "@/modules/shared/storage/mmkv-storage";
+import { mmkvStorage } from "@/modules/shared/store/mmkv-store";
 import { Address, TokenBalance } from "@ned-finance/wallet";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
