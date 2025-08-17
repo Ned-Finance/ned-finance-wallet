@@ -8,10 +8,12 @@ import { TokenListItem } from "./token-list-item";
 const DATA: TokenBalance[] = Array.from({ length: 300 }, (_, i) => ({
   token: {
     address: `sol:token:${i}`,
-    symbol: `Token ${i}`,
+    symbol: `TOK ${i}`,
+    name: `Token ${i}`,
     decimals: 9,
+    imageUrl: "https://placehold.co/150",
   },
-  amount: BigInt(i),
+  amount: BigInt(i * 1000000000),
 }));
 
 export const TokenList = ({ height, width }: PageSizeProps) => {

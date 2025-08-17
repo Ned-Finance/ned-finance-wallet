@@ -43,11 +43,11 @@ export function Tabs<T extends TabElement>({
   }, [themeVars]);
 
   const textActiveColor = useMemo(() => {
-    return `rgb(${themeVars["--ned-background"].split(" ").join(",")})`;
+    return `rgb(${themeVars["--ned-text-inverse"].split(" ").join(",")})`;
   }, [themeVars]);
 
   const textColor = useMemo(() => {
-    return `rgb(${themeVars["--ned-muted"].split(" ").join(",")})`;
+    return `rgb(${themeVars["--ned-text-secondary"].split(" ").join(",")})`;
   }, [themeVars]);
 
   useEffect(() => {

@@ -14,7 +14,7 @@ export function WalletActions() {
           name="Send"
           className="w-6 h-6 text-ned-primary"
         />
-        <Text className="text-sm text-ned-primary">
+        <Text className="text-sm text-ned-text-secondary">
           {t("wallet.main.actions.send")}
         </Text>
       </Pressable>
@@ -23,7 +23,7 @@ export function WalletActions() {
           name="DollarSign"
           className="w-6 h-6 text-ned-primary"
         />
-        <Text className="text-sm text-ned-primary">
+        <Text className="text-sm text-ned-text-secondary">
           {t("wallet.main.actions.buy")}
         </Text>
       </Pressable>

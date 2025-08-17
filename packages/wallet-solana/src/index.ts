@@ -27,6 +27,7 @@ const now = () => Date.now();
 
 const makeToken = (sym: string, val: bigint): TokenBalance => ({
   token: {
+    name: "Solana Token",
     address: `sol:token:${sym}` as Address,
     symbol: sym,
     decimals: 9,
@@ -92,6 +93,7 @@ export function createSolanaConnector(_opts?: {
         native: {
           token: {
             address: "sol:native:SOL" as Address,
+            name: "Solana Native Token",
             symbol: "SOL",
             decimals: 9,
           },

@@ -7,6 +7,9 @@ type KeyringState = {
   currentAccountAddress: string | null;
   selectAccount: (id: string) => void;
   addAccount: (account: Account) => void;
+  removeAccount: (address: string) => void;
+  setCurrentAccount: (address: string) => void;
+  setAccounts: (accounts: Account[]) => void;
 };
 
 export const useKeyringStore = create<KeyringState>((set) => ({
@@ -18,4 +21,10 @@ export const useKeyringStore = create<KeyringState>((set) => ({
       accounts: [...state.accounts, account],
       currentAccountAddress: account.address,
     })),
+  removeAccount: (address) =>
+    set((state) => ({
+      accounts: state.accounts.filter((a) => a.address !== address),
+    })),
+  setCurrentAccount: (address) => set({ currentAccountAddress: address }),
+  setAccounts: (accounts) => set({ accounts }),
 }));

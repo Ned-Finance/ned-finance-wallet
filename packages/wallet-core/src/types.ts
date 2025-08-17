@@ -11,6 +11,7 @@ export type Amount = bigint;
 
 export type Token = {
   address: Address;
+  name: string;
   symbol: string;
   decimals: number;
   imageUrl?: string;
