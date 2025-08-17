@@ -20,6 +20,10 @@ module.exports = {
         "ned-danger": "rgb(var(--ned-danger) / <alpha-value>)",
         "ned-muted": "rgb(var(--ned-muted) / <alpha-value>)",
         "ned-inverse": "rgb(var(--ned-inverse) / <alpha-value>)",
+        "ned-text": "rgb(var(--ned-text) / <alpha-value>)",
+        "ned-text-secondary": "rgb(var(--ned-text-secondary) / <alpha-value>)",
+        "ned-text-muted": "rgb(var(--ned-text-muted) / <alpha-value>)",
+        "ned-text-inverse": "rgb(var(--ned-text-inverse) / <alpha-value>)",
       },
       fontFamily: {
         sans: ["Inter", "sans-serif"],

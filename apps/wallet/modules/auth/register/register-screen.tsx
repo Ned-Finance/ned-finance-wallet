@@ -1,7 +1,7 @@
+import { useMnemonic } from "@/modules/keyring";
 import { Button } from "@/modules/shared";
 import { Icon } from "@/modules/shared/ui/icons";
 import { ScreenWrapper } from "@/modules/shared/ui/screen/screen-wrapper";
-import { useMnemonic } from "@/modules/wallet/hooks/useMnemonic";
 import { useRouter } from "expo-router";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";

@@ -17,6 +17,8 @@ export function Tabs<T extends TabElement>({
 
   const [tabIndex, setTabIndex] = useState(0);
 
+  const [isLayoutReady, setIsLayoutReady] = useState(false);
+
   const layoutSelectedTab = useMemo(() => {
     return tabLayouts[tabIndex] || { x: 0, y: 0, width: 0, height: 0 };
   }, [tabIndex, tabLayouts]);
@@ -54,6 +56,12 @@ export function Tabs<T extends TabElement>({
     }
   }, [onIndexChange, tabIndex]);
 
+  useEffect(() => {
+    if (Object.keys(tabLayouts).length === elements.length) {
+      setIsLayoutReady(true);
+    }
+  }, [tabLayouts, elements.length]);
+
   return (
     <ScrollView
       horizontal
@@ -75,19 +83,21 @@ export function Tabs<T extends TabElement>({
           />
         ))}
 
-        <Animated.View
-          style={{
-            position: "absolute",
-            transitionProperty: ["width", "left", "top", "height"],
-            transitionDuration: "300ms",
-            backgroundColor: backgroundActiveColor,
-            top: layoutSelectedTab?.y,
-            left: layoutSelectedTab?.x,
-            width: layoutSelectedTab?.width,
-            height: layoutSelectedTab?.height,
-          }}
-          className="rounded-2xl"
-        />
+        {isLayoutReady && (
+          <Animated.View
+            style={{
+              position: "absolute",
+              transitionProperty: ["width", "left", "top", "height"],
+              transitionDuration: "300ms",
+              backgroundColor: backgroundActiveColor,
+              top: layoutSelectedTab?.y,
+              left: layoutSelectedTab?.x,
+              width: layoutSelectedTab?.width,
+              height: layoutSelectedTab?.height,
+            }}
+            className="rounded-2xl"
+          />
+        )}
 
         {elements.map((element, index) => (
           <View

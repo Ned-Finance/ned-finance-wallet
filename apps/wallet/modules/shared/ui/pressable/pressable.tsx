@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { PressableProps, Pressable as RNPressable } from "react-native";
 import Animated from "react-native-reanimated";
+import { cn } from "../../utils/ui";
 
 export const Pressable = ({ children, ...props }: PressableProps) => {
   const [isPressed, setIsPressed] = useState(false);
@@ -16,7 +17,10 @@ export const Pressable = ({ children, ...props }: PressableProps) => {
         {...props}
         onPressIn={() => setIsPressed(true)}
         onPressOut={() => setIsPressed(false)}
-        className="flex flex-1 flex-row items-center justify-between rounded-2xl">
+        className={cn(
+          "flex flex-1 items-center justify-between rounded-2xl",
+          props.className ?? ""
+        )}>
         {children}
       </RNPressable>
     </Animated.View>

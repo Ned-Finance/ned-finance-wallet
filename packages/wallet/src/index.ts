@@ -1,11 +1,11 @@
 import {
   Account,
   Address,
-  AssetId,
   ChainId,
   DerivationRegistry,
   deriveAddressFromMnemonic,
   PortfolioSnapshot,
+  Token,
 } from "@ned-finance/wallet-core";
 import { AccountRecord, LocalSignerProvider } from "./signers";
 import type { ChainSummary, ConnectorWithMetadata, Wallet } from "./types";
@@ -126,7 +126,7 @@ export class Web3Wallet implements Wallet {
     p: {
       from: Address;
       to: Address;
-      assetId: AssetId;
+      token: Token;
       amount: bigint;
       memo?: string;
     }
@@ -172,7 +172,7 @@ export class Web3Wallet implements Wallet {
     fromAccountId: string;
     from: Address;
     to: Address;
-    assetId: AssetId;
+    token: Token;
     amount: bigint;
     memo?: string;
     priority?: "low" | "medium" | "high";
@@ -180,7 +180,7 @@ export class Web3Wallet implements Wallet {
     const { unsignedTx } = await this.buildTransfer(p.chainId, {
       from: p.from,
       to: p.to,
-      assetId: p.assetId,
+      token: p.token,
       amount: p.amount,
       memo: p.memo,
     });
@@ -203,4 +203,5 @@ export type {
   BlockchainName,
   ChainId,
   PortfolioSnapshot,
+  TokenBalance,
 } from "@ned-finance/wallet-core";

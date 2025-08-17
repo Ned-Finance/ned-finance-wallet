@@ -7,12 +7,18 @@ export type BlockchainName = string;
 export type Address = string;
 export type AssetId = string;
 
-export type Amount = { value: bigint; decimals: number };
+export type Amount = bigint;
+
+export type Token = {
+  address: Address;
+  symbol: string;
+  decimals: number;
+  imageUrl?: string;
+};
 
 export type TokenBalance = {
-  assetId: AssetId;
+  token: Token;
   amount: Amount;
-  updatedAt: number;
 };
 
 export type Account = {
@@ -23,7 +29,7 @@ export type Account = {
 };
 
 export type NftItem = {
-  assetId: AssetId;
+  address: Address;
   tokenId?: string; // EVM
   mint?: string; // Solana
   name?: string;
@@ -38,7 +44,7 @@ export type Position = {
   valueUsd?: number;
   components: Array<{
     role: "supplied" | "borrowed" | "staked" | "rewards";
-    assetId: AssetId;
+    address: Address;
     amount: Amount;
   }>;
   updatedAt: number;
@@ -52,7 +58,7 @@ export type PortfolioSnapshot = {
   tokens: TokenBalance[];
   nfts?: NftItem[];
   positions?: Position[];
-  priceMap?: Record<AssetId, number>;
+  priceMap?: Record<Address, number>;
   cursor?: string;
   ext?: Record<string, { schema: string; data: unknown }>;
   updatedAt: number;
@@ -126,8 +132,8 @@ export interface ChainConnector<K extends ChainId = ChainId> {
   buildTransfer(params: {
     from: Address;
     to: Address;
-    assetId: AssetId;
-    amount: bigint;
+    token: Token;
+    amount: Amount;
     memo?: string;
   }): Promise<{ unsignedTx: Uint8Array }>;
 

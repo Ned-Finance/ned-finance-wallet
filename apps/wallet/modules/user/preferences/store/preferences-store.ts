@@ -7,6 +7,8 @@ import { persist } from "zustand/middleware";
 export type PreferencesState = {
   theme: Theme;
   updateTheme: (theme: Theme) => void;
+  currencyCode: string;
+  updateCurrencyCode: (currencyCode: string) => void;
 };
 
 export const usePreferencesStore = create<PreferencesState>()(
@@ -16,6 +18,10 @@ export const usePreferencesStore = create<PreferencesState>()(
       updateTheme: (theme: Theme) => {
         console.log("🎨 Updating theme to:", theme);
         set({ theme });
+      },
+      currencyCode: "USD",
+      updateCurrencyCode: (currencyCode: string) => {
+        set({ currencyCode });
       },
     }),
     {
