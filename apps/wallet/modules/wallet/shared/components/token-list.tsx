@@ -1,4 +1,5 @@
 import { PageSizeProps } from "@/modules/shared/ui/pager/pager.props";
+import { TokenBalance } from "@ned-finance/wallet";
 import { FlashList } from "@shopify/flash-list";
 import React from "react";
 import { View } from "react-native";
@@ -7,6 +8,8 @@ import { TokenListItem } from "./token-list-item";
 
 export const TokenList = ({ height, width }: PageSizeProps) => {
   const { currentBalance } = useWallet();
+
+  const DATA: TokenBalance[] = [];
 
   return (
     <View style={{ height, width }}>

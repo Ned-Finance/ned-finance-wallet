@@ -1,5 +1,5 @@
 import { fromB64, toB64 } from "@/modules/shared/crypto/base64";
-import { secureStore } from "@/modules/shared/secure-store/index";
+import { secureStore } from "@/modules/shared/secure-store";
 import { xchacha20poly1305 } from "@noble/ciphers/chacha";
 import * as Crypto from "expo-crypto";
 import type { Address, EncryptedKeyBlob } from "../types";
@@ -29,8 +29,8 @@ export async function encryptPrivateKey(
 ): Promise<EncryptedKeyBlob> {
   const mk = await getOrCreateMasterKey();
   const nonce = await randomBytes(24); // XChaCha20 needs 24-byte nonce
-  const aead = xchacha20poly1305(mk);
-  const box = aead.seal(nonce, privateKey); // ciphertext + tag
+  const aead = xchacha20poly1305(mk, nonce);
+  const box = aead.encrypt(privateKey); // ciphertext + tag
   return {
     alg: "xchacha20poly1305",
     version: 1,
@@ -46,13 +46,12 @@ export async function decryptPrivateKey(
   const mk = await getOrCreateMasterKey();
   const nonce = fromB64(blob.nonce);
   const box = fromB64(blob.box);
-  const aead = xchacha20poly1305(mk);
-  const out = aead.open(nonce, box);
+  const aead = xchacha20poly1305(mk, nonce);
+  const out = aead.decrypt(box);
   if (!out) throw new Error("Decryption failed");
   return out;
 }
 
-// Persist per-address (address is your primary key)
 export async function saveEncryptedKey(
   address: Address,
   blob: EncryptedKeyBlob

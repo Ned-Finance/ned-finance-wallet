@@ -4,7 +4,10 @@
     "strict": true,
     "paths": {
       "@/*": ["./*"]
-    }
+    },
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "moduleDetection": "force"
   },
   "include": [
     "**/*.ts",
