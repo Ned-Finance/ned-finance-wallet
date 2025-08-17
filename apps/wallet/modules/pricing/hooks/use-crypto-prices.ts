@@ -5,11 +5,11 @@ import { CryptoPrices } from "../types/price";
 
 export function useCryptoPrices(
   assets: string[],
-  nativeTokenSymbol: string,
+  nativeTokenSymbol?: string,
   options?: Partial<UseQueryOptions<CryptoPrices>>
 ) {
   return useQuery({
-    queryKey: ["pricing", "crypto-usd", assets.join(","), nativeTokenSymbol],
+    queryKey: ["pricing", "token-price", assets.join(","), nativeTokenSymbol],
     queryFn: (): Promise<CryptoPrices> =>
       fetchTokenPrice(assets, nativeTokenSymbol),
     staleTime: 30_000,

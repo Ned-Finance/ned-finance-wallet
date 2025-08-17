@@ -1,5 +1,4 @@
-import { useCryptoPrices } from "../hooks/use-crypto-prices";
-import { useFiatRates } from "../hooks/use-fiat-rates";
+import { useCryptoPrices, useFiatRates } from "../hooks";
 
 export const PricingRefresher = () => {
   // TODO: Add time to user preferences
@@ -7,7 +6,7 @@ export const PricingRefresher = () => {
     refetchInterval: 5 * 60_000,
     staleTime: 10 * 60_000,
   });
-  useCryptoPrices(["SOL", "ETH", "USDC"], {
+  useCryptoPrices(["SOL", "ETH", "USDC"], undefined, {
     refetchInterval: 30_000,
     staleTime: 30_000,
   });

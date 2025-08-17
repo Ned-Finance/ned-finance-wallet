@@ -1,5 +1,5 @@
 import { Tabs } from "expo-router";
-import React from "react";
+import React, { useEffect } from "react";
 import { Platform, View } from "react-native";
 
 import { HapticTab } from "@/components/HapticTab";
@@ -7,13 +7,23 @@ import { IconSymbol } from "@/components/ui/IconSymbol";
 import TabBarBackground from "@/components/ui/TabBarBackground";
 import { PricingRefresher } from "@/modules/pricing";
 
-export default function TabLayout() {
-  // useEffect(() => {
+import { useManageAccounts } from "@/modules/keyring";
 
-  //   if (fiatRates) {
-  //     console.log("fiatRates", fiatRates);
-  //   }
-  // }, [fiatRates]);
+// Simulated wallet account and tokens
+const mockAccount = {
+  address: "0x1234abcd5678efgh9012ijklmnopqrstuvwx",
+  publicKey: "0x1234abcd5678efgh9012ijklmnopqrstuvwx",
+  chainId: "solana" as const,
+  label: "Demo Wallet",
+};
+
+export default function TabLayout() {
+  const { addAccountWithPrivateKey } = useManageAccounts();
+
+  useEffect(() => {
+    // Set the mock account and make it current
+    addAccountWithPrivateKey(mockAccount, new Uint8Array());
+  }, [addAccountWithPrivateKey]);
 
   return (
     <>
