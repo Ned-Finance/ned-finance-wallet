@@ -11,4 +11,12 @@ export const secureStore = {
   async deleteItem(key: string) {
     await del(key);
   },
+
+  // Biometric-bound storage not supported on web
+  async setItemBiometric() {
+    throw new Error("Biometrics not available on web");
+  },
+  async getItemBiometric() {
+    return null;
+  },
 };
