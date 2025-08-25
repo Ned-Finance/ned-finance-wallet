@@ -50,9 +50,6 @@ importers:
       readable-stream:
         specifier: ^1.0.33
         version: 1.1.14
-      rimraf:
-        specifier: ^5.0.5
-        version: 5.0.5
       stream-browserify:
         specifier: ^1.0.0
         version: 1.0.0
@@ -346,9 +343,6 @@ importers:
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
-      rimraf:
-        specifier: ^5.0.5
-        version: 5.0.5
       sharp:
         specifier: ^0.32.6
         version: 0.32.6
@@ -6485,11 +6479,6 @@ packages:
   rimraf@3.0.2:
     resolution: {integrity: sha512-JZkJMZkAGFFPP2YqXZXPbMlMBgsxzE8ILs4lMIX/2o0L9UBw9O/Y3o6wFw/i9YLapcUJWwqbi3kdxIPdC62TIA==}
     deprecated: Rimraf versions prior to v4 are no longer supported
-    hasBin: true
-
-  rimraf@5.0.5:
-    resolution: {integrity: sha512-CqDakW+hMe/Bz202FPEymy68P+G50RfMQK+Qo5YUqc9SPipvbGjCGKd0RSKEelbsfQuw3g5NZDSrlZZAJurH1A==}
-    engines: {node: '>=14'}
     hasBin: true
 
   ripemd160@2.0.2:
@@ -15275,7 +15264,7 @@ snapshots:
       react-refresh: 0.14.2
       regenerator-runtime: 0.13.11
       scheduler: 0.25.0
-      semver: 7.6.3
+      semver: 7.7.2
       stacktrace-parser: 0.1.10
       whatwg-fetch: 3.6.19
       ws: 6.2.3(bufferutil@4.0.8)(utf-8-validate@5.0.10)
@@ -15487,10 +15476,6 @@ snapshots:
   rimraf@3.0.2:
     dependencies:
       glob: 7.2.3
-
-  rimraf@5.0.5:
-    dependencies:
-      glob: 10.4.5
 
   ripemd160@2.0.2:
     dependencies:
