@@ -8,7 +8,6 @@ import TabBarBackground from "@/components/ui/TabBarBackground";
 import { PricingRefresher } from "@/modules/pricing";
 
 import { useManageAccounts, useMasterKey } from "@/modules/keyring";
-import { randomBytes } from "@/modules/shared/crypto";
 
 // Simulated wallet account and tokens
 const mockAccount = {
@@ -23,13 +22,12 @@ export default function TabLayout() {
   const { mk, setMK } = useMasterKey();
 
   useEffect(() => {
-    if (!mk) {
-      const randomMk = randomBytes(32);
-      setMK(randomMk);
-    }
-
-    // Set the mock account and make it current
-    addAccountWithPrivateKey(mockAccount, new Uint8Array());
+    // if (!mk) {
+    //   const randomMk = randomBytes(32);
+    //   setMK(randomMk);
+    // }
+    // // Set the mock account and make it current
+    // addAccountWithPrivateKey(mockAccount, new Uint8Array());
   }, [addAccountWithPrivateKey, mk, setMK]);
 
   return (

@@ -5,11 +5,14 @@ import {
 
 export type ChainId = WalletChainId;
 export type Address = WalletAddress;
+export type VaultId = string;
 
 export type PublicAccount = {
-  address: Address;
+  address: string;
   publicKey: string;
   chainId: ChainId;
+  vaultId: VaultId;
+  derivationPath: string;
   label?: string;
 };
 
@@ -32,10 +35,21 @@ export type WrappedMK = {
   createdAt: number;
 };
 
-export type EncryptedKeyBlob = {
+export type EncryptedBlob = {
   alg: "xchacha20poly1305";
   version: 1;
   nonce: string;
   box: string;
+  createdAt: number;
+};
+
+export type EncryptedKeyBlob = EncryptedBlob;
+
+export type EncryptedSecretBlob = EncryptedBlob;
+
+export type SeedVault = {
+  id: VaultId;
+  mnemonic: EncryptedSecretBlob;
+  label?: string;
   createdAt: number;
 };
