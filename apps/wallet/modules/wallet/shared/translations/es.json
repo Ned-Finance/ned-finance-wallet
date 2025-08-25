@@ -1,0 +1,10 @@
+{
+  "wallet": {
+    "main": {
+      "actions": {
+        "buy": "Buy",
+        "send": "Send"
+      }
+    }
+  }
+}

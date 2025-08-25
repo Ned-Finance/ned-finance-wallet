@@ -1,22 +1,29 @@
 import type {
+  Account,
   Address,
-  AssetId,
   CapabilityFlags,
+  ChainConnector,
   ChainId,
   PortfolioSnapshot,
+  Token,
   TokenBalance,
 } from "@ned-finance/wallet-core";
+
+// Interface for connectors with metadata
+export type ConnectorWithMetadata = {
+  connector: ChainConnector;
+  derivation: {
+    curve: "secp256k1" | "ed25519";
+    path: (i: number) => string;
+    pubToAddress: (pub: Uint8Array) => string;
+  };
+  displayName: string;
+};
 
 export type ChainSummary = {
   chainId: ChainId;
   displayName: string;
   capabilities: CapabilityFlags;
-};
-
-export type Account = {
-  address: Address;
-  privateKey: Uint8Array;
-  publicKey: Uint8Array;
 };
 
 export interface Wallet {
@@ -44,7 +51,7 @@ export interface Wallet {
     p: {
       from: Address;
       to: Address;
-      assetId: AssetId;
+      token: Token;
       amount: bigint;
       memo?: string;
     }
@@ -75,7 +82,7 @@ export interface Wallet {
     fromAccountId: string;
     from: Address;
     to: Address;
-    assetId: AssetId;
+    token: Token;
     amount: bigint;
     memo?: string;
     priority?: "low" | "medium" | "high";

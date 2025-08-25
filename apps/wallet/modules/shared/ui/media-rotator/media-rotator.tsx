@@ -36,7 +36,6 @@ export const MediaRotator = ({ onIndexChange, images }: MediaRotatorProps) => {
   };
 
   useEffect(() => {
-    console.log("useEffect triggered");
     progress.value = progressIndex;
     if (onIndexChange) onIndexChange(progressIndex);
   }, [progressIndex, progress, onIndexChange]);
@@ -48,15 +47,12 @@ export const MediaRotator = ({ onIndexChange, images }: MediaRotatorProps) => {
         source={images[progressIndex]}
         contentFit="contain"
         transition={500}
-        onLoad={() => console.log("Image loaded successfully")}
-        onError={(error) => console.log("Image error:", error)}
       />
 
       <View>
         <ProgressView
           images={images}
           onChange={(index: number) => {
-            console.log("ProgressView onChange:", index);
             if (index === images.length) {
               setProgressIndex(0);
             } else {

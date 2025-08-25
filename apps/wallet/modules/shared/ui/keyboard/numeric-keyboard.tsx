@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from "react";
 import { Platform, Text, TouchableOpacity, View } from "react-native";
-import { Icon } from "../icons/icon.nativewind";
+import { Icon } from "../icons";
 import {
   KeyBoardButtonProps,
   SectionButtonsProps,

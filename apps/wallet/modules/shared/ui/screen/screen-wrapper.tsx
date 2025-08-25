@@ -1,6 +1,6 @@
 import { useNavigation } from "expo-router";
 import { Text, TouchableOpacity, View } from "react-native";
-import { Icon } from "../icons/icon.nativewind";
+import { Icon } from "../icons";
 
 type ScreenWrapperProps = {
   children: React.ReactNode;

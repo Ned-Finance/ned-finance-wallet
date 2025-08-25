@@ -1,5 +1,5 @@
 import { STORE_NAME } from "@/constants";
-import { mmkvStorage } from "@/modules/shared/storage/mmkv-storage";
+import { mmkvStorage } from "@/modules/shared/store/mmkv-store";
 import { Theme } from "@/modules/shared/types/ui/themes";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
@@ -7,6 +7,8 @@ import { persist } from "zustand/middleware";
 export type PreferencesState = {
   theme: Theme;
   updateTheme: (theme: Theme) => void;
+  currencyCode: string;
+  updateCurrencyCode: (currencyCode: string) => void;
 };
 
 export const usePreferencesStore = create<PreferencesState>()(
@@ -16,6 +18,10 @@ export const usePreferencesStore = create<PreferencesState>()(
       updateTheme: (theme: Theme) => {
         console.log("🎨 Updating theme to:", theme);
         set({ theme });
+      },
+      currencyCode: "USD",
+      updateCurrencyCode: (currencyCode: string) => {
+        set({ currencyCode });
       },
     }),
     {

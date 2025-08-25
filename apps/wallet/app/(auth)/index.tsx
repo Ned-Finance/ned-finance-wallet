@@ -1,5 +1,5 @@
-import { AuthIndexScreen } from "@/modules/auth";
+import { AuthWelcomeScreen } from "@/modules/auth";
 
 export default function AuthIndex() {
-  return <AuthIndexScreen />;
+  return <AuthWelcomeScreen />;
 }

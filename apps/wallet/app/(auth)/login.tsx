@@ -1,4 +1,4 @@
-import { AuthLoginScreen } from "@/modules/auth/screens/auth-login-screen";
+import { AuthLoginScreen } from "@/modules/auth/login";
 
 export default function LoginScreen() {
   return <AuthLoginScreen />;

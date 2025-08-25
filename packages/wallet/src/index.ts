@@ -1,66 +1,22 @@
 import {
+  Account,
   Address,
-  AssetId,
-  ChainConnector,
   ChainId,
   DerivationRegistry,
   deriveAddressFromMnemonic,
   PortfolioSnapshot,
+  Token,
 } from "@ned-finance/wallet-core";
 import { AccountRecord, LocalSignerProvider } from "./signers";
-import type { Account, ChainSummary, Wallet } from "./types";
+import type { ChainSummary, ConnectorWithMetadata, Wallet } from "./types";
 
-// Interface for connectors with metadata
-interface ConnectorWithMetadata {
-  connector: ChainConnector;
-  derivation: {
-    curve: "secp256k1" | "ed25519";
-    path: (i: number) => string;
-    pubToAddress: (pub: Uint8Array) => string;
-  };
-  displayName: string;
-}
-
-export class DefaultWallet implements Wallet {
+export class Web3Wallet implements Wallet {
   private reg = new DerivationRegistry();
   private connectors: Map<ChainId, ConnectorWithMetadata> = new Map();
   private accounts: Record<string, AccountRecord> = {};
   private signer = new LocalSignerProvider(this.accounts);
-  private lazyLoadingEnabled: boolean = false;
-
-  constructor(
-    connectors?: ConnectorWithMetadata[],
-    enableLazyLoading: boolean = false
-  ) {
-    if (connectors) {
-      // Static mode - initialize passed connectors
-      this.initializeConnectors(connectors);
-    } else if (enableLazyLoading) {
-      // Lazy loading mode - load connectors when needed
-      this.lazyLoadingEnabled = true;
-    }
-  }
-
-  private initializeConnectors(connectors: ConnectorWithMetadata[]) {
-    connectors.forEach(({ connector, derivation, displayName }) => {
-      this.connectors.set(connector.chainId, {
-        connector,
-        derivation,
-        displayName,
-      });
-      this.reg.add(connector.chainId, derivation);
-    });
-  }
 
   private async ensureLoaded(chainId: ChainId) {
-    if (this.connectors.has(chainId)) return;
-
-    if (!this.lazyLoadingEnabled) {
-      throw new Error(
-        `Chain not supported: ${chainId}. Enable lazy loading or pass connectors in constructor.`
-      );
-    }
-
     // Lazy load the connector
     const { CONNECTOR_LOADERS } = await import("./plugins");
     const loader = CONNECTOR_LOADERS[chainId];
@@ -86,49 +42,30 @@ export class DefaultWallet implements Wallet {
   }
 
   async listChains(): Promise<ChainSummary[]> {
-    if (this.lazyLoadingEnabled) {
-      // In lazy loading, load all available chains
-      const { CONNECTOR_LOADERS } = await import("./plugins");
-      const chainIds = Object.keys(CONNECTOR_LOADERS) as ChainId[];
+    // In lazy loading, load all available chains
+    const { CONNECTOR_LOADERS } = await import("./plugins");
+    const chainIds = Object.keys(CONNECTOR_LOADERS) as ChainId[];
 
-      // Load metadata for all chains
-      const chainMetas = await Promise.all(
-        chainIds.map(async (chainId) => {
-          if (!this.connectors.has(chainId)) {
-            await this.ensureLoaded(chainId);
-          }
-          return this.connectors.get(chainId)!;
-        })
-      );
+    // Load metadata for all chains
+    const chainMetas = await Promise.all(
+      chainIds.map(async (chainId) => {
+        if (!this.connectors.has(chainId)) {
+          await this.ensureLoaded(chainId);
+        }
+        return this.connectors.get(chainId)!;
+      })
+    );
 
-      return chainMetas.map(({ connector, displayName }) => ({
-        chainId: connector.chainId,
-        displayName: displayName || connector.chainId,
-        capabilities: connector.capabilities,
-      }));
-    } else {
-      // Static mode - only already loaded chains
-      return Array.from(this.connectors.values()).map(
-        ({ connector, displayName }) => ({
-          chainId: connector.chainId,
-          displayName: displayName || connector.chainId,
-          capabilities: connector.capabilities,
-        })
-      );
-    }
+    return chainMetas.map(({ connector, displayName }) => ({
+      chainId: connector.chainId,
+      displayName: displayName || connector.chainId,
+      capabilities: connector.capabilities,
+    }));
   }
 
   async deriveFromMnemonic(mnemonic: string, selections: ChainId[], index = 0) {
     // Load chains if necessary
-    if (this.lazyLoadingEnabled) {
-      await Promise.all(selections.map((c) => this.ensureLoaded(c)));
-    } else {
-      // Validate that selections are available in static mode
-      const unavailable = selections.filter((id) => !this.connectors.has(id));
-      if (unavailable.length > 0) {
-        throw new Error(`Unsupported chains: ${unavailable.join(", ")}`);
-      }
-    }
+    await Promise.all(selections.map((c) => this.ensureLoaded(c)));
 
     const entries = await Promise.all(
       selections.map(async (chainId) => {
@@ -189,7 +126,7 @@ export class DefaultWallet implements Wallet {
     p: {
       from: Address;
       to: Address;
-      assetId: AssetId;
+      token: Token;
       amount: bigint;
       memo?: string;
     }
@@ -235,7 +172,7 @@ export class DefaultWallet implements Wallet {
     fromAccountId: string;
     from: Address;
     to: Address;
-    assetId: AssetId;
+    token: Token;
     amount: bigint;
     memo?: string;
     priority?: "low" | "medium" | "high";
@@ -243,7 +180,7 @@ export class DefaultWallet implements Wallet {
     const { unsignedTx } = await this.buildTransfer(p.chainId, {
       from: p.from,
       to: p.to,
-      assetId: p.assetId,
+      token: p.token,
       amount: p.amount,
       memo: p.memo,
     });
@@ -255,27 +192,16 @@ export class DefaultWallet implements Wallet {
   }
 }
 
-// Helper function to create wallet with all connectors pre-loaded (static mode)
-export async function createWalletWithLoaders(): Promise<DefaultWallet> {
-  const { CONNECTOR_LOADERS } = await import("./plugins");
-
-  const connectors: ConnectorWithMetadata[] = [];
-
-  for (const [chainId, loader] of Object.entries(CONNECTOR_LOADERS)) {
-    const metadata = await loader();
-    const connector = metadata.create();
-
-    connectors.push({
-      connector,
-      derivation: metadata.derivation,
-      displayName: metadata.displayName,
-    });
-  }
-
-  return new DefaultWallet(connectors, false); // false = static mode
+export function createWeb3Wallet(): Web3Wallet {
+  return new Web3Wallet();
 }
 
-// Helper function to create wallet with lazy loading enabled
-export function createWalletWithLazyLoading(): DefaultWallet {
-  return new DefaultWallet(undefined, true); // true = lazy loading
-}
+export type {
+  Account,
+  Address,
+  AssetId,
+  BlockchainName,
+  ChainId,
+  PortfolioSnapshot,
+  TokenBalance,
+} from "@ned-finance/wallet-core";

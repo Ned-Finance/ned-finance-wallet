@@ -23,7 +23,6 @@ export const TextFader: React.FC<TextFaderProps> = ({
   const opacity = useSharedValue(1);
 
   useEffect(() => {
-    console.log("entra => ", opacity.value);
     const changeText = () => {
       return setTimeout(() => {
         // Fade out current text

@@ -1,5 +1,5 @@
 import type {
-  AssetId,
+  Address,
   CapabilityFlags,
   ChainConnector,
   NftItem,
@@ -10,6 +10,9 @@ import { getBase58Codec } from "@solana/codecs-strings";
 
 export const SOLANA_CHAIN_ID = "solana" as const;
 export type SolanaChainId = typeof SOLANA_CHAIN_ID;
+
+export const SOLANA_BLOCKCHAIN_NAME = "Solana" as const;
+export type SolanaBlockchainName = typeof SOLANA_BLOCKCHAIN_NAME;
 
 export const SOLANA_DERIVATION = {
   curve: "ed25519" as const,
@@ -22,14 +25,18 @@ export const SOLANA_DERIVATION = {
 
 const now = () => Date.now();
 
-const makeToken = (sym: string, val: bigint, dec: number): TokenBalance => ({
-  assetId: `sol:token:${sym}` as AssetId,
-  amount: { value: val, decimals: dec },
-  updatedAt: now(),
+const makeToken = (sym: string, val: bigint): TokenBalance => ({
+  token: {
+    name: "Solana Token",
+    address: `sol:token:${sym}` as Address,
+    symbol: sym,
+    decimals: 9,
+  },
+  amount: val,
 });
 
 const makeNft = (slug: string, i: number): NftItem => ({
-  assetId: `sol:nft:${slug}:${i}` as AssetId,
+  address: `sol:nft:${slug}:${i}` as Address,
   mint: `Mint${slug}${i}`,
   name: `Mock ${slug} #${i}`,
   mediaUrl: `https://picsum.photos/seed/${slug}-${i}/300/300`,
@@ -73,6 +80,7 @@ export function createSolanaConnector(_opts?: {
   return {
     chainId: SOLANA_CHAIN_ID,
     capabilities,
+    name: SOLANA_BLOCKCHAIN_NAME,
 
     async getSnapshot({
       address,
@@ -83,15 +91,16 @@ export function createSolanaConnector(_opts?: {
         chainId: SOLANA_CHAIN_ID,
         address,
         native: {
-          assetId: "sol:native:SOL" as AssetId,
-          amount: { value: 12_345_678n, decimals: 9 },
-          updatedAt: t0,
+          token: {
+            address: "sol:native:SOL" as Address,
+            name: "Solana Native Token",
+            symbol: "SOL",
+            decimals: 9,
+          },
+          amount: 12_345_678n,
         },
         tokens: include.tokens
-          ? [
-              makeToken("USDC", 5_000_000n, 6),
-              makeToken("BONK", 123_456_789n, 5),
-            ]
+          ? [makeToken("USDC", 5_000_000n), makeToken("BONK", 123_456_789n)]
           : [],
         nfts: include.nfts
           ? [makeNft("CoolCats", 1), makeNft("PixelBirds", 1)]
@@ -105,7 +114,7 @@ export function createSolanaConnector(_opts?: {
       const total = 450;
       const count = Math.min(limit, Math.max(0, total - page));
       const items: TokenBalance[] = Array.from({ length: count }, (_, i) =>
-        makeToken(`MOCK${page + i}`, 1_000n + BigInt(page + i), 6)
+        makeToken(`MOCK${page + i}`, 1_000n + BigInt(page + i))
       );
       const next = page + count < total ? String(page + count) : undefined;
       return { items, cursor: next, updatedAt: now() };
@@ -122,12 +131,12 @@ export function createSolanaConnector(_opts?: {
       return { items, cursor: next, updatedAt: now() };
     },
 
-    async buildTransfer({ from, to, assetId, amount, memo }) {
+    async buildTransfer({ from, to, token, amount, memo }) {
       const enc = new TextEncoder();
       const payload = JSON.stringify({
         from,
         to,
-        assetId,
+        token,
         amount: amount.toString(),
         memo,
         ts: Date.now(),

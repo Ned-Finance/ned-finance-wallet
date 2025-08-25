@@ -1,0 +1,15 @@
+{
+  "wallet": {
+    "main": {
+      "actions": {
+        "buy": "Buy",
+        "send": "Send"
+      },
+      "options": {
+        "tokens": "Tokens",
+        "collectibles": "Collectibles",
+        "portfolio": "Portfolio"
+      }
+    }
+  }
+}
