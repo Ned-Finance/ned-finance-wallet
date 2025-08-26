@@ -3,8 +3,14 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "packageManager": "pnpm@9.15.4",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "turbo dev",
+    "dev:wallet": "turbo dev --filter=\"{./apps/wallet}...\"",
+    "lint": "turbo lint",
+    "test": "turbo test",
+    "build": "turbo build",
+    "build:wallet": "turbo build --filter=\"...{./apps/wallet}\""
   },
   "keywords": [],
   "author": "",
@@ -42,6 +48,7 @@
     "stream-browserify": "^1.0.0",
     "timers-browserify": "^1.0.1",
     "tty-browserify": "0.0.0",
+    "turbo": "^2.5.6",
     "util": "^0.12.4",
     "vm-browserify": "0.0.4"
   },

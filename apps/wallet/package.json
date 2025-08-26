@@ -2,13 +2,17 @@
   "name": "@ned-finance/app",
   "main": "index",
   "version": "1.0.0",
+  "packageManager": "pnpm@9.15.4",
   "scripts": {
     "start": "expo start",
     "reset-project": "node ./scripts/reset-project.js",
     "android": "expo run:android",
     "ios": "expo run:ios",
     "web": "expo start --web",
-    "lint": "expo lint"
+    "build": "expo export --output-dir ./build --platform all",
+    "eas-build-post-install": "pnpm run -w build:wallet",
+    "lint": "expo lint",
+    "bump-version": "node bump-version.js"
   },
   "dependencies": {
     "@babel/plugin-proposal-export-namespace-from": "^7.18.9",
@@ -59,7 +63,6 @@
     "react-native-toast-message": "^2.3.3",
     "react-native-web": "~0.20.0",
     "react-native-webview": "13.13.5",
-    "react-native-worklets": "^0.4.1",
     "scrypt-js": "^3.0.1",
     "zustand": "^5.0.7"
   },
