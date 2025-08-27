@@ -88,9 +88,9 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 
-    namespace 'finance.ned.wallet'
+    namespace 'org.nedfinance.wallet'
     defaultConfig {
-        applicationId 'finance.ned.wallet'
+        applicationId 'org.nedfinance.wallet'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

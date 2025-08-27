@@ -1,4 +1,4 @@
-package finance.ned.wallet
+package org.nedfinance.wallet
 import expo.modules.splashscreen.SplashScreenManager
 
 import android.os.Build

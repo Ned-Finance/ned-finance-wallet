@@ -47,8 +47,8 @@ jobs:
         run: |
           eas init --id ffd909b9-8b21-4311-b6b6-f795be84def1 --force --non-interactive
           echo $(jq '.expo.runtimeVersion.policy = "sdkVersion"' app.json) > app.json
-          echo $(jq '.expo.android.package = "finance.ned.wallet"' app.json) > app.json
-          echo $(jq '.expo.ios.bundleIdentifier = "finance.ned.wallet"' app.json) > app.json
+          echo $(jq '.expo.android.package = "org.nedfinance.wallet"' app.json) > app.json
+          echo $(jq '.expo.ios.bundleIdentifier = "org.nedfinance.wallet"' app.json) > app.json
 
       - name: 🚀 Build wallet
         if:

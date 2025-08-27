@@ -1,4 +1,4 @@
-package finance.ned.wallet
+package org.nedfinance.wallet
 
 import android.app.Application
 import android.content.res.Configuration

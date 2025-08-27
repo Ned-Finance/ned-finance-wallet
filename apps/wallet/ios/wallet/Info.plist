@@ -28,7 +28,7 @@
         <key>CFBundleURLSchemes</key>
         <array>
           <string>ned-finance-wallet</string>
-          <string>finance.ned.wallet</string>
+          <string>org.nedfinance.wallet</string>
         </array>
       </dict>
     </array>
