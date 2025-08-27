@@ -1,16 +1,10 @@
-import { useTheme } from "@/modules/user/preferences/providers/theme-provider";
 import {
   BottomSheetBackdrop,
   BottomSheetBackdropProps,
   BottomSheetModal,
   BottomSheetView,
 } from "@gorhom/bottom-sheet";
-import React, {
-  useCallback,
-  useImperativeHandle,
-  useMemo,
-  useRef,
-} from "react";
+import React, { useCallback, useImperativeHandle, useRef } from "react";
 
 export type DetachedModalMethods = {
   present: (index?: number) => void;
@@ -33,26 +27,15 @@ export const DetachedModal = ({
   // ref
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
 
-  const { themeVars } = useTheme();
-
-  const nedBackground = useMemo(
-    () =>
-      `rgb(${themeVars["--ned-background-secondary"].split(" ").join(",")})`,
-    [themeVars]
-  );
-
-  const nedMuted = useMemo(
-    () => `rgb(${themeVars["--ned-muted"].split(" ").join(",")})`,
-    [themeVars]
-  );
-
   useImperativeHandle(
     ref,
     () => ({
       present: (index?: number) => {
         bottomSheetModalRef.current?.present(index);
+        bottomSheetModalRef.current?.snapToIndex(index ?? 0);
       },
       dismiss: () => {
+        bottomSheetModalRef.current?.close();
         bottomSheetModalRef.current?.dismiss();
       },
     }),
@@ -77,29 +60,24 @@ export const DetachedModal = ({
     <BottomSheetModal
       ref={bottomSheetModalRef}
       detached={true}
-      bottomInset={25}
+      bottomInset={80}
       enableDismissOnClose={enableDismissOnClose}
       backdropComponent={renderBackdrop}
       enablePanDownToClose={enablePanDownToClose}
       showHandle={enablePanDownToClose}
-      backgroundStyle={{
-        backgroundColor: nedBackground,
-        flex: 1,
-      }}
-      handleIndicatorStyle={{
-        backgroundColor: nedMuted,
-      }}
-      style={{
-        marginHorizontal: 32,
-      }}>
+      backgroundClassName="bg-ned-background-secondary flex-1"
+      handleIndicatorClassName="bg-ned-muted"
+      className="mx-8">
       <BottomSheetView
-        style={{
-          padding: 4,
-          flex: 1,
-          minHeight: 200,
-          height: "100%",
-          width: "100%",
-        }}>
+        className="flex-1 min-h-60 h-full w-full"
+        // style={{
+        // padding: 4,
+        //   flex: 1,
+        //   minHeight: 200,
+        //   height: "100%",
+        //   width: "100%",
+        // }}
+      >
         {children}
       </BottomSheetView>
     </BottomSheetModal>

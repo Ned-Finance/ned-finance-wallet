@@ -28,10 +28,14 @@ export const TextFader: React.FC<TextFaderProps> = ({
         // Fade out current text
         opacity.value = withTiming(0, { duration: fadeDuration }, () => {
           // After fade out, change to next text and fade in
-          setCurrentIndex(nextIndex);
-          setNextIndex((nextIndex + 1) % texts.length);
+
           opacity.value = withTiming(1, { duration: fadeDuration });
         });
+
+        setTimeout(() => {
+          setCurrentIndex(nextIndex);
+          setNextIndex((nextIndex + 1) % texts.length);
+        }, fadeDuration);
       }, duration);
     };
 

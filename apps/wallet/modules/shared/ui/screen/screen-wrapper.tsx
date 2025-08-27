@@ -1,5 +1,6 @@
 import { useNavigation } from "expo-router";
 import { Text, TouchableOpacity, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { Icon } from "../icons";
 
 type ScreenWrapperProps = {
@@ -18,7 +19,7 @@ export const ScreenWrapper = ({
   const navigation = useNavigation();
 
   return (
-    <View className="flex-1 p-4">
+    <SafeAreaView className="flex-1 p-4">
       {showBack && (
         <View className="flex-row items-center justify-between">
           <TouchableOpacity
@@ -37,6 +38,6 @@ export const ScreenWrapper = ({
         </View>
       )}
       {children}
-    </View>
+    </SafeAreaView>
   );
 };

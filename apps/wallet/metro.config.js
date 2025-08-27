@@ -1,12 +1,12 @@
-const { getDefaultConfig } = require("expo/metro-config");
 const { withNativeWind } = require("nativewind/metro");
 const { FileStore } = require("metro-cache");
 const path = require("path");
+const { getSentryExpoConfig } = require("@sentry/react-native/metro");
 
 // Create the default Expo config for Metro
 // This includes the automatic monorepo configuration for workspaces
 // See: https://docs.expo.dev/guides/monorepos/#automatic-configuration
-const config = getDefaultConfig(__dirname);
+const config = getSentryExpoConfig(__dirname);
 
 // Configure alias resolution
 config.resolver.alias = {

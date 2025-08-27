@@ -37,7 +37,15 @@
         }
       ],
       "expo-localization",
-      "expo-secure-store"
+      "expo-secure-store",
+      [
+        "@sentry/react-native/expo",
+        {
+          "url": "https://sentry.io/",
+          "project": "ned-wallet",
+          "organization": "ned-finance"
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true,

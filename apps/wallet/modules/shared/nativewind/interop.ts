@@ -14,9 +14,11 @@ cssInterop(BottomSheet, {
 });
 
 cssInterop(BottomSheetView, {
-  className: "style",
+  className: { target: "style" },
 });
 
 cssInterop(BottomSheetModal, {
-  className: "style",
+  backgroundClassName: { target: "backgroundStyle" },
+  handleIndicatorClassName: { target: "handleIndicatorStyle" },
+  className: { target: "style" },
 });

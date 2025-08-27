@@ -32,7 +32,7 @@ export const ImportedAccount = ({
       onPress={() =>
         onPress({ address, numberOfTransactions, checked, blockchainName })
       }>
-      <View className="flex flex-1 flex-row items-center justify-between bg-ned-background-secondary rounded-2xl p-4">
+      <View className="flex flex-1 flex-row items-center justify-between bg-ned-background-secondary rounded-2xl p-4 w-full">
         <View>
           <Text className="text-white">{getWalletAddress(address)}</Text>
           <Text className="text-ned-muted">

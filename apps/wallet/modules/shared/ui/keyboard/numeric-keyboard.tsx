@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from "react";
-import { Platform, Text, TouchableOpacity, View } from "react-native";
+import { Platform, Pressable, Text, View } from "react-native";
 import { Icon } from "../icons";
 import {
   KeyBoardButtonProps,
@@ -17,8 +17,8 @@ const EmptyButton = () => {
 
 const BiometricButton = ({ onBiometric }: { onBiometric: () => void }) => {
   return (
-    <TouchableOpacity
-      className="py-4 my-1 mx-5 rounded flex-1 items-center"
+    <Pressable
+      className="py-4 my-1 mx-5 rounded flex-1 items-center w-1/3"
       onPress={() => onBiometric()}>
       {Platform.OS === "ios" ? (
         <Icon
@@ -33,21 +33,21 @@ const BiometricButton = ({ onBiometric }: { onBiometric: () => void }) => {
           className="text-white w-10 h-10 mt-1"
         />
       )}
-    </TouchableOpacity>
+    </Pressable>
   );
 };
 
 const DeleteBackspaceButton = ({ onDelete }: { onDelete: () => void }) => {
   return (
-    <TouchableOpacity
-      className="py-4 my-1 mx-5 rounded flex-1 items-center"
+    <Pressable
+      className="py-4 my-1 mx-5 rounded flex-1 items-center w-1/3"
       onPress={() => onDelete()}>
       <Icon
         name="Delete"
         strokeWidth={1.5}
         className="text-white w-10 h-10 mt-1"
       />
-    </TouchableOpacity>
+    </Pressable>
   );
 };
 
@@ -59,12 +59,12 @@ const NumericButton = ({
   onPress: (value: string) => void;
 }) => {
   return (
-    <TouchableOpacity
+    <Pressable
       key={value}
-      className="py-4 my-1 mx-5 rounded flex-1 items-center"
+      className="w-1/3 py-8 my-1 rounded items-center"
       onPress={() => onPress(value.toString())}>
       <Text className="text-white text-3xl">{value}</Text>
-    </TouchableOpacity>
+    </Pressable>
   );
 };
 
@@ -76,7 +76,7 @@ const SectionButtons: FC<SectionButtonsProps> = ({
   showBiometric = false,
 }) => {
   return (
-    <View className="flex-row grid grid-cols-3 justify-center w-full">
+    <View className="flex-row flex-wrap justify-center">
       {data.map((val: number) => {
         if (val >= 0) {
           return (

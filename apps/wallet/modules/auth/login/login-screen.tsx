@@ -19,7 +19,7 @@ export const AuthLoginScreen = () => {
     setTimeout(() => {
       router.push("/(auth)/select-accounts");
       detachedModalRef.current?.dismiss();
-    }, 1000);
+    }, 5000);
   };
 
   return (
