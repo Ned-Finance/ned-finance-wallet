@@ -2,10 +2,10 @@ import { Tabs } from "expo-router";
 import React, { useEffect } from "react";
 import { Platform, View } from "react-native";
 
-import { HapticTab } from "@/components/HapticTab";
 import { IconSymbol } from "@/components/ui/IconSymbol";
 import TabBarBackground from "@/components/ui/TabBarBackground";
 import { PricingRefresher } from "@/modules/pricing";
+import { HapticTab } from "@/modules/shared/ui/tabs/haptic-tab";
 
 import { useManageAccounts, useMasterKey } from "@/modules/keyring";
 import { TabBar } from "@/modules/wallet/shared/components/tab-bar";
@@ -35,7 +35,19 @@ export default function TabLayout() {
     <>
       <PricingRefresher />
       <Tabs
-        tabBar={(props) => <TabBar {...props} />}
+        tabBar={(props) => (
+          <TabBar
+            {...props}
+            theme={{
+              activeColor: "#007AFF",
+              inactiveColor: "#8E8E93",
+              backgroundColor:
+                Platform.OS === "ios" ? "rgba(255, 255, 255, 0.95)" : "#FFFFFF",
+              iconSize: 28,
+              textSize: 12,
+            }}
+          />
+        )}
         screenLayout={({ children }) => (
           <View className="flex-1 bg-ned-background">{children}</View>
         )}

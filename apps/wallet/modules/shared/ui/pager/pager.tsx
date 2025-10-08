@@ -32,7 +32,7 @@ export const Pager = ({ pages, showIndicator = true }: PagerProps) => {
           style={{ width, height }}>
           {/*
           Monta si la página está a ±1 del índice visible
-          (FlatList ya virtualiza, esto es “extra perezoso” si tu contenido es pesado)
+          (FlatList ya virtualiza, esto es "extra perezoso" si tu contenido es pesado)
         */}
           <MaybeMount
             index={index}
@@ -82,10 +82,10 @@ export const Pager = ({ pages, showIndicator = true }: PagerProps) => {
             justifyContent: "center",
             marginTop: 8,
           }}>
-          {pages.map((_, i) => {
+          {pages.map((page, i) => {
             return (
               <Dot
-                key={i}
+                key={page.key}
                 index={i}
                 x={x}
               />
@@ -101,20 +101,22 @@ function MaybeMount({
   index,
   x,
   children,
-}: {
+}: Readonly<{
   index: number;
   x: SharedValue<number>;
   children: React.ReactNode;
-}) {
+}>) {
   const { width } = useWindowDimensions();
+
   const style = useAnimatedStyle(() => {
     const current = x.value / width;
-    const visible = Math.abs(current - index) <= 1 ? 1 : 0;
-    return { opacity: visible ? 1 : 0 };
+    const visible = Math.abs(current - index) <= 1;
+
+    return {
+      opacity: visible ? 1 : 0,
+      flex: 1,
+    };
   });
-  // Podrías condicionar el render si quieres extremo ahorro:
-  // if (Math.abs(x.value/width - index) > 1) return null;
-  return (
-    <Animated.View style={{ ...style, flex: 1 }}>{children}</Animated.View>
-  );
+
+  return <Animated.View style={style}>{children}</Animated.View>;
 }

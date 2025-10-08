@@ -8,7 +8,7 @@ import type { TabElement, TabLayout, TabsProps } from "./tabs.props";
 export function Tabs<T extends TabElement>({
   elements,
   onIndexChange,
-}: TabsProps<T>) {
+}: Readonly<TabsProps<T>>) {
   const { themeVars } = useTheme();
 
   const [tabLayouts, setTabLayouts] = useState<{
@@ -39,15 +39,27 @@ export function Tabs<T extends TabElement>({
   };
 
   const backgroundActiveColor = useMemo(() => {
-    return `rgb(${themeVars["--ned-primary"].split(" ").join(",")})`;
+    const primaryColor = themeVars?.["--ned-primary"];
+    if (!primaryColor || typeof primaryColor !== "string") {
+      return "rgb(0, 239, 209)"; // fallback color
+    }
+    return `rgb(${primaryColor.split(" ").join(",")})`;
   }, [themeVars]);
 
   const textActiveColor = useMemo(() => {
-    return `rgb(${themeVars["--ned-text-inverse"].split(" ").join(",")})`;
+    const textInverseColor = themeVars?.["--ned-text-inverse"];
+    if (!textInverseColor || typeof textInverseColor !== "string") {
+      return "rgb(10, 10, 10)"; // fallback color
+    }
+    return `rgb(${textInverseColor.split(" ").join(",")})`;
   }, [themeVars]);
 
   const textColor = useMemo(() => {
-    return `rgb(${themeVars["--ned-text-secondary"].split(" ").join(",")})`;
+    const textSecondaryColor = themeVars?.["--ned-text-secondary"];
+    if (!textSecondaryColor || typeof textSecondaryColor !== "string") {
+      return "rgb(150, 150, 150)"; // fallback color
+    }
+    return `rgb(${textSecondaryColor.split(" ").join(",")})`;
   }, [themeVars]);
 
   useEffect(() => {
