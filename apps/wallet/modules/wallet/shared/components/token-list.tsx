@@ -3,13 +3,21 @@ import { TokenBalance } from "@ned-finance/wallet";
 import { FlashList } from "@shopify/flash-list";
 import React from "react";
 import { View } from "react-native";
-import { useWallet } from "../hooks/use-wallet";
 import { TokenListItem } from "./token-list-item";
 
-export const TokenList = ({ height, width }: PageSizeProps) => {
-  const { currentBalance } = useWallet();
+const fakeToken = {
+  token: {
+    address: "ssdsdsd",
+    name: "sdsdsd",
+    symbol: "SOL",
+    decimals: 9,
+    imageUrl: "http://sdsdsdcom",
+  },
+  amount: BigInt(1_000_000_000),
+};
 
-  const DATA: TokenBalance[] = [];
+export const TokenList = ({ height, width }: PageSizeProps) => {
+  const DATA: TokenBalance[] = new Array(10).fill(fakeToken, 0, 10);
 
   return (
     <View style={{ height, width }}>

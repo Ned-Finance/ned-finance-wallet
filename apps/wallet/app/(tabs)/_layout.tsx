@@ -8,6 +8,7 @@ import TabBarBackground from "@/components/ui/TabBarBackground";
 import { PricingRefresher } from "@/modules/pricing";
 
 import { useManageAccounts, useMasterKey } from "@/modules/keyring";
+import { TabBar } from "@/modules/wallet/shared/components/tab-bar";
 
 // Simulated wallet account and tokens
 const mockAccount = {
@@ -34,6 +35,7 @@ export default function TabLayout() {
     <>
       <PricingRefresher />
       <Tabs
+        tabBar={(props) => <TabBar {...props} />}
         screenLayout={({ children }) => (
           <View className="flex-1 bg-ned-background">{children}</View>
         )}

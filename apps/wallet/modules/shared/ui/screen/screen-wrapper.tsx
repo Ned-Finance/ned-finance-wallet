@@ -19,7 +19,7 @@ export const ScreenWrapper = ({
   const navigation = useNavigation();
 
   return (
-    <SafeAreaView className="flex-1 p-4">
+    <SafeAreaView className="flex-1 !p-4">
       {showBack && (
         <View className="flex-row items-center justify-between">
           <TouchableOpacity

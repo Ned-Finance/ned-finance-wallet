@@ -12,7 +12,7 @@ export const AuthSuccessScreen = () => {
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-      router.replace("/(tabs)");
+      router.replace("/(tabs)/wallet");
     }, 3000);
 
     return () => {

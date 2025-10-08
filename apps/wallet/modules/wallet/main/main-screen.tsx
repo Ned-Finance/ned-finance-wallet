@@ -7,7 +7,7 @@ import { WalletSections } from "./components/wallet-sections";
 
 export const WalletMainScreen = () => {
   return (
-    <View className="flex-1 p-2">
+    <View className="flex-1 p-4">
       <WalletHeader />
       <WalletBalance />
       <WalletActions />
