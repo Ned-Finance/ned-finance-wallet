@@ -22,7 +22,7 @@ export const TokenList = ({ height, width }: PageSizeProps) => {
   return (
     <View
       style={{ height, width }}
-      className="overflow-visible bg-slate-600">
+      className="overflow-visible">
       <FlashList
         data={DATA}
         removeClippedSubviews={false}
