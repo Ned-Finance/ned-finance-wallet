@@ -48,11 +48,24 @@
  *        paddingVertical: 16,
  *      }}
  *    />
+ *
+ * 5. Blur effect theme:
+ *    <TabBar
+ *      {...props}
+ *      theme={{
+ *        blurEnabled: true,
+ *        blurIntensity: 100,
+ *        blurTint: 'systemChromeMaterial',
+ *        activeColor: '#007AFF',
+ *        inactiveColor: '#8E8E93',
+ *      }}
+ *    />
  */
 
 import { HapticTab } from "@/modules/shared/ui/tabs/haptic-tab";
 import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
 import { NavigationState, Route } from "@react-navigation/native";
+import { BlurView } from "expo-blur";
 import { Platform, Text, View, ViewStyle } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
@@ -77,6 +90,18 @@ interface TabBarTheme {
   shadowOpacity?: number;
   shadowRadius?: number;
   elevation?: number;
+  // Blur effect options
+  blurEnabled?: boolean;
+  blurIntensity?: number;
+  blurTint?:
+    | "light"
+    | "dark"
+    | "default"
+    | "systemChromeMaterial"
+    | "systemMaterial"
+    | "systemThickMaterial"
+    | "systemThinMaterial"
+    | "systemUltraThinMaterial";
 }
 
 interface TabBarIconProps {
@@ -197,6 +222,10 @@ export const TabBar = ({
     shadowOpacity: 0.1,
     shadowRadius: 3,
     elevation: 8,
+    // Blur effect defaults
+    blurEnabled: true,
+    blurIntensity: 100,
+    blurTint: Platform.OS === "ios" ? "systemChromeMaterial" : "default",
   };
 
   // Merge theme with defaults
@@ -204,9 +233,11 @@ export const TabBar = ({
 
   const tabBarStyle: ViewStyle = {
     flexDirection: "row",
-    backgroundColor: finalTheme.backgroundColor,
-    borderTopWidth: Platform.OS === "ios" ? 0.5 : 1,
-    borderTopColor: finalTheme.borderColor,
+    backgroundColor: finalTheme.blurEnabled
+      ? "transparent"
+      : finalTheme.backgroundColor,
+    // Remove the white line by setting borderTopWidth to 0
+    borderTopWidth: 0,
     paddingBottom: Platform.OS === "ios" ? insets.bottom : 0,
     shadowColor: finalTheme.shadowColor,
     shadowOffset: {
@@ -216,10 +247,28 @@ export const TabBar = ({
     shadowOpacity: finalTheme.shadowOpacity,
     shadowRadius: finalTheme.shadowRadius,
     elevation: finalTheme.elevation,
+    position: "relative",
+    overflow: "hidden",
   };
 
   return (
     <View style={tabBarStyle}>
+      {/* Blur background */}
+      {finalTheme.blurEnabled && (
+        <BlurView
+          tint={finalTheme.blurTint}
+          intensity={finalTheme.blurIntensity}
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+          }}
+        />
+      )}
+
+      {/* Tab items */}
       {state.routes.map((route, index) => {
         const isFocused = state.index === index;
 

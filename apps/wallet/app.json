@@ -3,59 +3,27 @@
     "name": "ned-finance-wallet",
     "slug": "ned-finance-wallet",
     "version": "1.0.0",
-    "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
-    "scheme": "ned-finance-wallet",
-    "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
-    "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "org.nedfinance.wallet"
-    },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      },
-      "edgeToEdgeEnabled": true,
-      "package": "org.nedfinance.wallet"
-    },
     "web": {
       "bundler": "metro",
       "output": "static",
       "favicon": "./assets/images/favicon.png"
     },
-    "plugins": [
-      "expo-router",
-      [
-        "expo-splash-screen",
-        {
-          "image": "./assets/images/splash-icon.png",
-          "imageWidth": 200,
-          "resizeMode": "contain",
-          "backgroundColor": "#ffffff"
-        }
-      ],
-      "expo-localization",
-      "expo-secure-store",
-      [
-        "@sentry/react-native/expo",
-        {
-          "url": "https://sentry.io/",
-          "project": "ned-wallet",
-          "organization": "ned-finance"
-        }
-      ]
-    ],
     "experiments": {
       "typedRoutes": true,
-      "ssr": false
+      "reactCompiler": true
     },
     "extra": {
       "router": {},
       "eas": {
         "projectId": "ffd909b9-8b21-4311-b6b6-f795be84def1"
       }
+    },
+    "android": {
+      "package": "com.mordonez.nedfinancewallet"
+    },
+    "ios": {
+      "bundleIdentifier": "com.mordonez.nedfinancewallet"
     }
   }
 }

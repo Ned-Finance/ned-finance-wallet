@@ -8,6 +8,7 @@ import { PricingRefresher } from "@/modules/pricing";
 import { HapticTab } from "@/modules/shared/ui/tabs/haptic-tab";
 
 import { useManageAccounts, useMasterKey } from "@/modules/keyring";
+import { Icon } from "@/modules/shared/ui";
 import { TabBar } from "@/modules/wallet/shared/components/tab-bar";
 
 // Simulated wallet account and tokens
@@ -41,8 +42,11 @@ export default function TabLayout() {
             theme={{
               activeColor: "#007AFF",
               inactiveColor: "#8E8E93",
-              backgroundColor:
-                Platform.OS === "ios" ? "rgba(255, 255, 255, 0.95)" : "#FFFFFF",
+              // Enable blur effect instead of solid background
+              blurEnabled: true,
+              blurIntensity: 100,
+              blurTint:
+                Platform.OS === "ios" ? "systemChromeMaterial" : "default",
               iconSize: 28,
               textSize: 12,
             }}
@@ -68,10 +72,9 @@ export default function TabLayout() {
           options={{
             title: "Wallet",
             tabBarIcon: ({ color }) => (
-              <IconSymbol
-                size={28}
-                name="house.fill"
-                color={color}
+              <Icon
+                name="Wallet"
+                className="size-8"
               />
             ),
           }}
