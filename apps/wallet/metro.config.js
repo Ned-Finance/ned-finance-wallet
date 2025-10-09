@@ -1,4 +1,4 @@
-const { withNativeWind } = require("nativewind/metro");
+const { withNativewind } = require("nativewind/metro");
 const { FileStore } = require("metro-cache");
 const path = require("path");
 const { getSentryExpoConfig } = require("@sentry/react-native/metro");
@@ -13,12 +13,12 @@ config.resolver.alias = {
   "@": path.resolve(__dirname, "./"),
 };
 
-config.resolver.unstable_enablePackageExports = true;
-config.resolver.unstable_conditionNames = [
-  "require",
-  "react-native",
-  "default",
-];
+// config.resolver.unstable_enablePackageExports = true;
+// config.resolver.unstable_conditionNames = [
+//   "require",
+//   "react-native",
+//   "default",
+// ];
 
 // Use turborepo to restore the cache when possible
 config.cacheStores = [
@@ -27,4 +27,4 @@ config.cacheStores = [
   }),
 ];
 
-module.exports = withNativeWind(config, { input: "./assets/css/global.css" });
+module.exports = withNativewind(config);
