@@ -20,10 +20,12 @@ export const TokenList = ({ height, width }: PageSizeProps) => {
   const DATA: TokenBalance[] = new Array(10).fill(fakeToken, 0, 10);
 
   return (
-    <View style={{ height, width }}>
+    <View
+      style={{ height, width }}
+      className="overflow-visible bg-slate-600">
       <FlashList
         data={DATA}
-        removeClippedSubviews
+        removeClippedSubviews={false}
         nestedScrollEnabled
         estimatedItemSize={80}
         getItemType={(item) => "token"}

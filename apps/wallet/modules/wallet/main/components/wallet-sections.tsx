@@ -9,7 +9,7 @@ export function WalletSections() {
   const { t } = useTranslation();
 
   return (
-    <View className="flex-col justify-center my-4 flex-1">
+    <View className="flex-col justify-center my-4 flex-1 bg-red-400">
       <Tabs
         elements={[
           { text: t("wallet.main.options.tokens") },

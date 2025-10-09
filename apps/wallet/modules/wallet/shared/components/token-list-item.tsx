@@ -6,13 +6,13 @@ import { Text, View } from "react-native";
 
 export const TokenListItem = ({ token, amount }: TokenBalance) => {
   return (
-    <View className="flex-row items-center justify-between p-4">
-      <View className="flex-row items-center gap-2">
+    <View className="flex-row items-center p-4">
+      <View className="flex-row items-center gap-2 flex-1">
         <Image
           source={{ uri: token.imageUrl }}
           className="w-6 h-6 rounded-full"
         />
-        <View>
+        <View className="flex-1">
           <Text className="text-ned-text-secondary">{token.name}</Text>
           <Text className="text-ned-text-secondary">
             {formatAmount(amount, token.decimals)} {token.symbol}
@@ -20,9 +20,11 @@ export const TokenListItem = ({ token, amount }: TokenBalance) => {
         </View>
       </View>
 
-      <Text className="text-ned-text">
-        {formatAmount(amount, token.decimals)}
-      </Text>
+      <View className="ml-2">
+        <Text className="text-ned-text text-right">
+          {formatAmount(amount, token.decimals)}
+        </Text>
+      </View>
     </View>
   );
 };

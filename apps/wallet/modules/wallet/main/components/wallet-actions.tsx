@@ -8,7 +8,7 @@ export function WalletActions() {
   const { t } = useTranslation();
 
   return (
-    <View className="flex-row justify-center space-x-4 my-4">
+    <View className="flex-row justify-center space-x-4 h-20">
       <Pressable className="flex flex-col items-center gap-2 rounded-2xl p-4 w-18">
         <Icon
           name="Send"

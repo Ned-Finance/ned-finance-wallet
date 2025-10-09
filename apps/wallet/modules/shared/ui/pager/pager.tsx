@@ -10,12 +10,11 @@ import { Dot } from "./dot";
 import { Page, PagerProps } from "./pager.props";
 
 export const Pager = ({ pages, showIndicator = true }: PagerProps) => {
-  const { width } = useWindowDimensions();
-
   const x = useSharedValue(0);
   const listRef = useRef<FlatList<Page>>(null);
 
   const [height, setHeight] = useState(0);
+  const [width, setWidth] = useState(0);
 
   const onScroll = useAnimatedScrollHandler({
     onScroll: (e) => {
@@ -23,17 +22,12 @@ export const Pager = ({ pages, showIndicator = true }: PagerProps) => {
     },
   });
 
-  // Lazy render: solo monta si está cerca del viewport
   const renderItem = useCallback(
     ({ item, index }: { item: Page; index: number }) => {
       return (
         <View
           className="flex-1"
           style={{ width, height }}>
-          {/*
-          Monta si la página está a ±1 del índice visible
-          (FlatList ya virtualiza, esto es "extra perezoso" si tu contenido es pesado)
-        */}
           <MaybeMount
             index={index}
             x={x}>
@@ -52,6 +46,7 @@ export const Pager = ({ pages, showIndicator = true }: PagerProps) => {
       className="flex-1"
       onLayout={(event) => {
         setHeight(event.nativeEvent.layout.height);
+        setWidth(event.nativeEvent.layout.width);
       }}>
       <Animated.FlatList
         ref={listRef}
@@ -74,7 +69,6 @@ export const Pager = ({ pages, showIndicator = true }: PagerProps) => {
         })}
       />
 
-      {/* Indicador simple */}
       {showIndicator && (
         <View
           style={{

@@ -1,8 +1,7 @@
 import { useTheme } from "@/modules/user/preferences/providers/theme-provider";
 import React, { useEffect, useMemo, useState } from "react";
-import { LayoutChangeEvent, ScrollView, View } from "react-native";
+import { LayoutChangeEvent, Pressable, ScrollView, View } from "react-native";
 import Animated from "react-native-reanimated";
-import { Pressable } from "../pressable/pressable";
 import type { TabElement, TabLayout, TabsProps } from "./tabs.props";
 
 export function Tabs<T extends TabElement>({
@@ -78,9 +77,9 @@ export function Tabs<T extends TabElement>({
     <ScrollView
       horizontal
       showsHorizontalScrollIndicator={false}
-      contentContainerClassName="h-14"
-      className="w-full max-h-14">
-      <View className="flex-row gap-2 items-center justify-start">
+      contentContainerClassName="h-10"
+      className="w-full max-h-10">
+      <View className="flex h-full flex-row gap-2 items-center justify-start">
         {Object.keys(tabLayouts).map((key) => (
           <View
             key={"bg-" + key}
@@ -114,12 +113,10 @@ export function Tabs<T extends TabElement>({
         {elements.map((element, index) => (
           <View
             key={element.text + index}
-            className={"rounded-2xl"}
+            className="flex-1"
             onLayout={(event) => handleLayout({ event, index })}>
-            <Pressable
-              onPress={() => setTabIndex(index)}
-              className="flex-1 flex-row items-center justify-between">
-              <View className="px-4 py-2 flex-1 flex-row items-center justify-between w-full h-full">
+            <Pressable onPress={() => setTabIndex(index)}>
+              <View className="px-4 py-2 rounded-2xl flex h-full items-center justify-center">
                 <Animated.Text
                   style={{
                     transitionProperty: "color",
