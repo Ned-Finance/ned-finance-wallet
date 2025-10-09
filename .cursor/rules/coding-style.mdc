@@ -1,0 +1,195 @@
+---
+alwaysApply: true
+---
+
+# .cursorrules
+
+# Ned Finance Wallet — Cursor Rules
+
+# Source of truth: https://github.com/Ned-Finance/ned-finance-wallet
+
+# Monorepo: Nx + pnpm; Expo React Native app in apps/wallet; shared packages in /packages; services in /services.
+
+# Primary language: TypeScript. Some Kotlin/Swift for native modules. Use Expo + EAS for builds.
+
+# ------------------------------------------------------------
+
+## 0) Assistant persona & boundaries
+
+- Be a **senior RN/Web3 engineer**: precise, terse, source-driven. Prefer small,
+  composable changes over big rewrites.
+- Never invent APIs. If unsure, **read code in the repo** and propose a
+  minimally invasive change first.
+- When touching crypto logic, key management, or signing flows: **explain risks,
+  cite standards (EIP-155, EIP-1193, CAIP-2, BIP-39/44, SLIP-0010, ed25519)**,
+  and request explicit confirmation before altering behavior.
+
+## 1) Tech stack & workspace
+
+- Monorepo tasks run with **Nx** and **pnpm**. Prefer:
+  - `pnpm i` (never `npm`/`yarn`)
+  - `pnpm nx graph`, `pnpm nx run <project>:<target>`,
+    `pnpm nx affected:<target>`
+- App target lives in **`apps/wallet`** (Expo React Native). Shared code goes to
+  **`packages/*`**.
+- Do not create cross-package imports via relative paths; use workspace
+  aliases/TS path mapping.
+
+## 2) Project scaffolding & layering
+
+- App feature folders (inside `apps/wallet`) follow:
+  - `features/<domain>/components/*`
+  - `features/<domain>/screens/*`
+  - `features/<domain>/hooks/*`
+  - `features/<domain>/state/*`
+  - `features/<domain>/services/*` (pure UI-agnostic)
+- Shared packages of `apps/wallet`:
+  - `packages/shared` – Everything that can be used across many features.
+- Shared packages with `apps/wallet`:
+  - `packages/wallet` – Standard wallet functionality to be exposed to
+    apps/wallet (or others). It uses `packages/wallet-core` and any blockchain
+    package like `packages/wallet-solana`.
+  - `packages/wallet-core` – Core functionality used in `packages/wallet`.
+  - `packages/wallet-solana` – All functionality related to solana blockchain.
+    If there are L2 blockchains (or similar) that share code, one package must
+    be created and exported as many blockchains in `packages/wallet`.
+  - `packages/config` – Constants, env parsing, feature flags if needed.
+- **Dependency rule:** `apps/*` may depend on `packages/*`. `packages/*` must
+  not import from `apps/*`.
+
+## 3) Code style & quality
+
+- Use TypeScript strict mode; no `any` unless isolated with TODO and a plan to
+  remove.
+- Prefer **Zod** (or existing schema lib) for runtime validation at boundaries
+  (network, storage, env).
+- Enforce **Conventional Commits** (`feat:`, `fix:`, `chore:` …). Include
+  `affects: <scope>` if helpful for Nx.
+- Add unit tests for pure logic (`packages/*`) and component tests for critical
+  UIs. Keep e2e light and scenario-based.
+- Always us a functional programming style. Use types instead of interface
+  unless is really required for the purpose.
+
+## 4) Environment & configuration
+
+- Use **Expo env** + `EXPO_PUBLIC_*` for client-exposed config only. Secrets
+  never go in `EXPO_PUBLIC_*`.
+- Parse env through `packages/config` and export typed config. Provide safe
+  defaults in dev; fail fast in prod if missing.
+
+## 5) State management & data
+
+- Prefer **TanStack Query** for server/RPC state (caching, retries, background
+  refresh).
+- Use a small **Zustand** (or existing) store per feature for UI/ephemeral state
+  (modals, filters).
+- No global “god store”. Cross-feature state must be explicit via
+  context/providers or shared selectors.
+
+## 6) Navigation & screens
+
+- Keep navigation config (stacks/tabs) in a dedicated `navigation/` module.
+- Each screen owns its data requirements (queries/hooks) and passes pure props
+  to leaf components.
+- Each screen must only include the main screen located in `features/<domain>`
+  and the screen should include a tree of componentes encapsulated properly.
+
+## 7) Networking & Web3
+
+- EVM: prefer **Viem** (or repo’s chosen client) and WalletConnect v2. Never
+  embed RPC URLs in components.
+- Solana: use `@anza-xyz/kit` (or the repo’s abstraction). Keep connection,
+  commitment, and cluster in config.
+- **Never** log private keys, mnemonics, seeds, or raw signatures. Add lint
+  rules against “secret-y” strings.
+- All signing ops live in `packages/wallet-core` providers. UI may request an
+  action, but never handles keys directly.
+- For chain detection, use provider’s chainId/namespace and **CAIP-2**
+  identifiers in adapters.
+
+## 8) Security & privacy
+
+- Keys and sensitive data:
+  - Mobile: secure storage (e.g., `expo-secure-store`/native keychain). No
+    AsyncStorage for secrets.
+  - Clipboard operations for addresses default to **off**; require explicit user
+    action + toast.
+- Implement **biometrics lock** and **inactivity timeouts** at the app level
+  (configurable).
+- Mask balances/amounts behind a “private mode” toggle; persist preference
+  locally.
+- Use **semantic error boundaries** around signing/transaction flows; never
+  swallow errors.
+
+## 9) UX guidelines
+
+- Loading: optimistic UI only for idempotent actions; otherwise show pending
+  state with cancel/backoff.
+- Errors: human-readable message + “technical details” expandable. Offer retry
+  with jitter.
+- Amount inputs: locale-aware decimals, max button, fee preview, slippage
+  controls where relevant.
+- Addresses: checksum (EVM), base58 validation (Solana). Show ENS/UNS if
+  available, but never rely on them.
+
+## 10) Performance
+
+- Keep bundle slim: move heavy deps to `packages/*` and lazy-import in screens.
+- Use **FlashList**/virtualized lists for token/NFT portfolios.
+- Memoize derived balances/fiat values; recompute only on block/slot or on
+  relevant query changes.
+
+## 11) Testing
+
+- Minimums:
+  - Unit: core math/formatting/signing utils (100% lines/branches where
+    feasible).
+  - Component: critical screens (portfolio, send, receive, sign) with happy +
+    error paths.
+  - Contract/RPC mocks: snapshot the minimal wire format; validate Zod schemas.
+- Add a smoke test for startup (env loaded, providers mounted, navigation
+  renders).
+
+## 12) Native modules (Kotlin/Swift)
+
+- Keep native code thin and documented: purpose, thread model, error mapping.
+- All native bridges must provide a **pure TS facade** in `packages/*` with
+  clear types and fallbacks.
+
+## 13) CI/CD
+
+- Use Nx affected for selective builds/tests/lint:
+  - `pnpm nx affected -t lint,test,build`
+- Pre-merge requires green: typecheck, lint, tests.
+- Expo EAS builds should be reproducible; lock node/pnpm versions in CI.
+
+## 14) Git, PRs & reviews
+
+- Small PRs (<300 LOC changes) with a clear “Why” and “How”.
+- Include a **risk notes** section for any change touching signing, key storage,
+  or fee estimation.
+- If a change increases permissions or touches privacy, add a **Security Review
+  Checklist** in PR description.
+
+## 15) Documentation
+
+- Each feature has a short `README.md` (what it does, main flows, edge cases).
+- Public enums/consts/functions in `packages/*` must have TSDoc. Generate API
+  docs if feasible.
+
+## 16) Prompting tips (how to ask Cursor)
+
+- “Create a new feature module `features/transfers` with screen + hooks +
+  Zustand store. Add Viem calls in `packages/web3/evm/transfers.ts` and route
+  config. Write unit tests for formatting and a component test for the form.”
+- “Refactor token balance fetching to TanStack Query with 5-sec stale time and
+  chain-aware keys. Do not change the UI.”
+
+## 17) Non-goals (things to avoid)
+
+- No cross-platform hacks that break web or iOS. Prefer platform checks with
+  graceful fallbacks.
+- No ad-hoc crypto libs if a well-maintained lib exists.
+- No silent error handling around anything involving funds.
+
+# End of rules
