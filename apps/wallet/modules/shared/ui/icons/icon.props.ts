@@ -1,6 +1,10 @@
+import { LucideIcon } from "lucide-react-native";
+
 type IconProps = {
-  name: string;
   className?: string;
+  size?: number;
+  icon: LucideIcon;
+  strokeWidth?: number;
 };
 
 export type { IconProps };
