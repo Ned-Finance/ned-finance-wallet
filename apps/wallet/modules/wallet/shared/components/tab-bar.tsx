@@ -244,7 +244,7 @@ export const TabBar = ({
     flexDirection: "row",
     backgroundColor: finalTheme.blurEnabled
       ? "transparent"
-      : "rgba(0, 0, 0, 0.8)", // Temporary dark background for debugging
+      : finalTheme.backgroundColor,
     // Floating effect with rounded corners
     borderRadius: 20,
     marginHorizontal: 16,
