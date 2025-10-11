@@ -9,12 +9,14 @@
  * 1. Basic usage with default theme:
  *    <TabBar {...props} />
  *
- * 2. Custom theme:
+ * 2. Custom theme with Tailwind classes:
  *    <TabBar
  *      {...props}
  *      theme={{
- *        activeColor: '#FF6B6B',
- *        inactiveColor: '#999999',
+ *        activeTextClassName: 'text-red-500 font-bold',
+ *        inactiveTextClassName: 'text-gray-500 font-normal',
+ *        activeIconClassName: 'text-red-500',
+ *        inactiveIconClassName: 'text-gray-500',
  *        backgroundColor: '#FFFFFF',
  *        iconSize: 28,
  *        textSize: 14,
@@ -22,12 +24,14 @@
  *      }}
  *    />
  *
- * 3. Dark theme:
+ * 3. Dark theme with custom colors:
  *    <TabBar
  *      {...props}
  *      theme={{
- *        activeColor: '#4FC3F7',
- *        inactiveColor: '#757575',
+ *        activeTextClassName: 'text-blue-400 font-semibold',
+ *        inactiveTextClassName: 'text-gray-400 font-normal',
+ *        activeIconClassName: 'text-blue-400',
+ *        inactiveIconClassName: 'text-gray-400',
  *        backgroundColor: '#212121',
  *        borderColor: '#424242',
  *        shadowColor: '#000',
@@ -39,8 +43,10 @@
  *    <TabBar
  *      {...props}
  *      theme={{
- *        activeColor: '#000000',
- *        inactiveColor: '#CCCCCC',
+ *        activeTextClassName: 'text-black font-semibold',
+ *        inactiveTextClassName: 'text-gray-300 font-normal',
+ *        activeIconClassName: 'text-black',
+ *        inactiveIconClassName: 'text-gray-300',
  *        backgroundColor: 'transparent',
  *        borderColor: 'transparent',
  *        shadowOpacity: 0,
@@ -56,8 +62,10 @@
  *        blurEnabled: true,
  *        blurIntensity: 100,
  *        blurTint: 'systemChromeMaterial',
- *        activeColor: '#007AFF',
- *        inactiveColor: '#8E8E93',
+ *        activeTextClassName: 'text-blue-500 font-semibold',
+ *        inactiveTextClassName: 'text-gray-500 font-normal',
+ *        activeIconClassName: 'text-blue-500',
+ *        inactiveIconClassName: 'text-gray-500',
  *      }}
  *    />
  */
@@ -80,8 +88,10 @@ interface TabBarItemProps {
 interface TabBarTheme {
   backgroundColor?: string;
   borderColor?: string;
-  activeColor?: string;
-  inactiveColor?: string;
+  activeTextClassName?: string;
+  inactiveTextClassName?: string;
+  activeIconClassName?: string;
+  inactiveIconClassName?: string;
   textSize?: number;
   iconSize?: number;
   paddingVertical?: number;
@@ -102,12 +112,6 @@ interface TabBarTheme {
     | "systemThickMaterial"
     | "systemThinMaterial"
     | "systemUltraThinMaterial";
-}
-
-interface TabBarIconProps {
-  focused: boolean;
-  color: string;
-  size: number;
 }
 
 interface CustomTabBarProps extends BottomTabBarProps {
@@ -150,16 +154,18 @@ const TabBarItem = ({
     });
   };
 
-  // Get colors from theme or use defaults
-  const activeColor = theme?.activeColor || "#007AFF";
-  const inactiveColor = theme?.inactiveColor || "#8E8E93";
+  // Get className and size from theme or use defaults
+  const activeTextClassName = theme?.activeTextClassName || "text-ned-primary font-semibold";
+  const inactiveTextClassName = theme?.inactiveTextClassName || "text-ned-text-muted font-normal";
+  const activeIconClassName = theme?.activeIconClassName || "text-ned-primary";
+  const inactiveIconClassName = theme?.inactiveIconClassName || "text-ned-text-muted";
   const iconSize = theme?.iconSize || 24;
   const textSize = theme?.textSize || 12;
   const paddingVertical = theme?.paddingVertical || 8;
   const paddingHorizontal = theme?.paddingHorizontal || 4;
 
-  const iconColor = focused ? activeColor : inactiveColor;
-  const textColor = focused ? activeColor : inactiveColor;
+  const textClassName = focused ? activeTextClassName : inactiveTextClassName;
+  const iconClassName = focused ? activeIconClassName : inactiveIconClassName;
 
   return (
     <HapticTab
@@ -180,16 +186,15 @@ const TabBarItem = ({
           <View style={{ marginBottom: 4 }}>
             {options.tabBarIcon({
               focused,
-              color: iconColor,
+              className: iconClassName,
               size: iconSize,
-            } as TabBarIconProps)}
+            } as any)}
           </View>
         )}
         <Text
+          className={textClassName}
           style={{
-            color: textColor,
             fontSize: textSize,
-            fontWeight: focused ? "600" : "400",
             textAlign: "center",
           }}>
           {label}
@@ -212,8 +217,10 @@ export const TabBar = ({
     backgroundColor:
       Platform.OS === "ios" ? "rgba(255, 255, 255, 0.95)" : "#FFFFFF",
     borderColor: Platform.OS === "ios" ? "rgba(0, 0, 0, 0.1)" : "#E5E5E7",
-    activeColor: "#007AFF",
-    inactiveColor: "#8E8E93",
+    activeTextClassName: "text-ned-primary font-semibold",
+    inactiveTextClassName: "text-ned-text-muted font-normal",
+    activeIconClassName: "text-ned-primary",
+    inactiveIconClassName: "text-ned-text-muted",
     textSize: 12,
     iconSize: 24,
     paddingVertical: 8,
