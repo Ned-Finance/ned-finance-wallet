@@ -271,19 +271,38 @@ export const TabBar = ({
     <View style={tabBarStyle}>
       {/* Enhanced blur background for floating effect */}
       {finalTheme.blurEnabled && (
-        <BlurView
-          tint={Platform.OS === "ios" ? "systemUltraThinMaterial" : "light"}
-          intensity={Platform.OS === "ios" ? 80 : 100}
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            borderRadius: 20,
-            zIndex: 0,
-          }}
-        />
+        <>
+          {Platform.OS === "ios" ? (
+            <BlurView
+              tint="systemUltraThinMaterial"
+              intensity={80}
+              style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                borderRadius: 20,
+                zIndex: 0,
+              }}
+            />
+          ) : (
+            // Android blur with higher intensity
+            <BlurView
+              tint="dark"
+              intensity={100}
+              style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                borderRadius: 20,
+                zIndex: 0,
+              }}
+            />
+          )}
+        </>
       )}
 
       {/* Tab items with higher z-index */}
