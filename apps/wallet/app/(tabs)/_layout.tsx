@@ -15,19 +15,19 @@ export default function TabLayout() {
     (props: BottomTabBarProps) => (
       <TabBar
         {...props}
-        theme={{
-          activeTextClassName: "text-white font-semibold",
-          inactiveTextClassName: "text-gray-400 font-normal",
-          activeIconClassName: "text-white",
-          inactiveIconClassName: "text-gray-400",
-          // Temporarily disable blur to debug icon visibility
-          blurEnabled: false,
-          blurIntensity: Platform.OS === "ios" ? 80 : 100,
-          blurTint: Platform.OS === "ios" ? "systemUltraThinMaterial" : "light",
-          iconSize: 28,
-          textSize: 12,
-          paddingVertical: 12,
-        }}
+         theme={{
+           activeTextClassName: "text-ned-primary font-semibold",
+           inactiveTextClassName: "text-ned-text-muted font-normal",
+           activeIconClassName: "text-ned-primary",
+           inactiveIconClassName: "text-ned-text-muted",
+           // Temporarily disable blur to debug icon visibility
+           blurEnabled: false,
+           blurIntensity: Platform.OS === "ios" ? 80 : 100,
+           blurTint: Platform.OS === "ios" ? "systemUltraThinMaterial" : "light",
+           iconSize: 28,
+           textSize: 12,
+           paddingVertical: 12,
+         }}
       />
     ),
     []
@@ -44,7 +44,7 @@ export default function TabLayout() {
     ({ focused }: { focused: boolean }) => (
       <Icon
         name="Wallet"
-        className={focused ? "text-white" : "text-gray-400"}
+        className={focused ? "text-ned-primary" : "text-ned-text-muted"}
         strokeWidth={2}
       />
     ),
@@ -55,7 +55,7 @@ export default function TabLayout() {
     ({ focused }: { focused: boolean }) => (
       <Icon
         name="ArrowLeftRight"
-        className={focused ? "text-white" : "text-gray-400"}
+        className={focused ? "text-ned-primary" : "text-ned-text-muted"}
         strokeWidth={2}
       />
     ),
