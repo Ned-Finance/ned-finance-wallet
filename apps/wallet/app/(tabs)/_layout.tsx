@@ -1,7 +1,7 @@
+import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
 import { Tabs } from "expo-router";
 import React, { useCallback } from "react";
 import { Platform, View } from "react-native";
-import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
 
 import TabBarBackground from "@/components/ui/TabBarBackground";
 import { PricingRefresher } from "@/modules/pricing";
@@ -15,35 +15,54 @@ const getIconTabBarClasses = (focused: boolean) => {
 };
 
 export default function TabLayout() {
-  const TabBarComponent = useCallback((props: BottomTabBarProps) => (
-    <TabBar
-      {...props}
-      theme={{
-        activeTextClassName: "text-ned-primary font-semibold",
-        inactiveTextClassName: "text-ned-text-muted font-normal",
-        activeIconClassName: "text-ned-primary",
-        inactiveIconClassName: "text-ned-text-muted",
-        // Enable blur effect instead of solid background
-        blurEnabled: true,
-        blurIntensity: 100,
-        blurTint: Platform.OS === "ios" ? "systemChromeMaterial" : "default",
-        iconSize: 28,
-        textSize: 12,
-      }}
-    />
-  ), []);
+  const TabBarComponent = useCallback(
+    (props: BottomTabBarProps) => (
+      <TabBar
+        {...props}
+         theme={{
+           activeTextClassName: "text-ned-primary font-semibold",
+           inactiveTextClassName: "text-ned-text-muted font-normal",
+           activeIconClassName: "text-ned-primary",
+           inactiveIconClassName: "text-ned-text-muted",
+           // Floating tab bar with enhanced blur
+           blurEnabled: true,
+           blurIntensity: Platform.OS === "ios" ? 80 : 100,
+           blurTint: Platform.OS === "ios" ? "systemUltraThinMaterial" : "light",
+           iconSize: 28,
+           textSize: 12,
+           paddingVertical: 12,
+         }}
+      />
+    ),
+    []
+  );
 
-  const ScreenLayout = useCallback(({ children }: { children: React.ReactNode }) => (
-    <View className="flex-1 bg-ned-background">{children}</View>
-  ), []);
+  const ScreenLayout = useCallback(
+    ({ children }: { children: React.ReactNode }) => (
+      <View className="flex-1 bg-ned-background">{children}</View>
+    ),
+    []
+  );
 
-  const WalletIcon = useCallback(({ focused }: { focused: boolean }) => (
-    <Icon name="Wallet" className={getIconTabBarClasses(focused)} />
-  ), []);
+  const WalletIcon = useCallback(
+    ({ focused }: { focused: boolean }) => (
+      <Icon
+        name="Wallet"
+        className={getIconTabBarClasses(focused)}
+      />
+    ),
+    []
+  );
 
-  const ExploreIcon = useCallback(({ focused }: { focused: boolean }) => (
-    <Icon name="ArrowLeftRight" className={getIconTabBarClasses(focused)} />
-  ), []);
+  const ExploreIcon = useCallback(
+    ({ focused }: { focused: boolean }) => (
+      <Icon
+        name="ArrowLeftRight"
+        className={getIconTabBarClasses(focused)}
+      />
+    ),
+    []
+  );
 
   return (
     <>
@@ -57,10 +76,20 @@ export default function TabLayout() {
           tabBarBackground: TabBarBackground,
           tabBarStyle: Platform.select({
             ios: {
-              // Use a transparent background on iOS to show the blur effect
+              // Remove default tab bar styling for floating effect
               position: "absolute",
+              backgroundColor: "transparent",
+              borderTopWidth: 0,
+              elevation: 0,
+              shadowOpacity: 0,
             },
-            default: {},
+            default: {
+              // Remove default tab bar styling for floating effect
+              position: "absolute",
+              backgroundColor: "transparent",
+              borderTopWidth: 0,
+              elevation: 0,
+            },
           }),
         }}>
         <Tabs.Screen

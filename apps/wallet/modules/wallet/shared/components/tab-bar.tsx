@@ -155,10 +155,13 @@ const TabBarItem = ({
   };
 
   // Get className and size from theme or use defaults
-  const activeTextClassName = theme?.activeTextClassName || "text-ned-primary font-semibold";
-  const inactiveTextClassName = theme?.inactiveTextClassName || "text-ned-text-muted font-normal";
+  const activeTextClassName =
+    theme?.activeTextClassName || "text-ned-primary font-semibold";
+  const inactiveTextClassName =
+    theme?.inactiveTextClassName || "text-ned-text-muted font-normal";
   const activeIconClassName = theme?.activeIconClassName || "text-ned-primary";
-  const inactiveIconClassName = theme?.inactiveIconClassName || "text-ned-text-muted";
+  const inactiveIconClassName =
+    theme?.inactiveIconClassName || "text-ned-text-muted";
   const iconSize = theme?.iconSize || 24;
   const textSize = theme?.textSize || 12;
   const paddingVertical = theme?.paddingVertical || 8;
@@ -212,27 +215,26 @@ export const TabBar = ({
 }: CustomTabBarProps) => {
   const insets = useSafeAreaInsets();
 
-  // Default theme values
+  // Default theme values for floating tab bar
   const defaultTheme: Required<TabBarTheme> = {
-    backgroundColor:
-      Platform.OS === "ios" ? "rgba(255, 255, 255, 0.95)" : "#FFFFFF",
-    borderColor: Platform.OS === "ios" ? "rgba(0, 0, 0, 0.1)" : "#E5E5E7",
+    backgroundColor: "transparent", // Always transparent for floating effect
+    borderColor: "transparent",
     activeTextClassName: "text-ned-primary font-semibold",
     inactiveTextClassName: "text-ned-text-muted font-normal",
     activeIconClassName: "text-ned-primary",
     inactiveIconClassName: "text-ned-text-muted",
     textSize: 12,
     iconSize: 24,
-    paddingVertical: 8,
-    paddingHorizontal: 4,
+    paddingVertical: 12, // Increased padding for floating effect
+    paddingHorizontal: 8,
     shadowColor: "#000",
-    shadowOpacity: 0.1,
-    shadowRadius: 3,
-    elevation: 8,
-    // Blur effect defaults
+    shadowOpacity: 0.25,
+    shadowRadius: 12,
+    elevation: 16,
+    // Enhanced blur effect defaults
     blurEnabled: true,
-    blurIntensity: 100,
-    blurTint: Platform.OS === "ios" ? "systemChromeMaterial" : "default",
+    blurIntensity: Platform.OS === "ios" ? 80 : 100,
+    blurTint: Platform.OS === "ios" ? "systemUltraThinMaterial" : "light",
   };
 
   // Merge theme with defaults
@@ -243,34 +245,42 @@ export const TabBar = ({
     backgroundColor: finalTheme.blurEnabled
       ? "transparent"
       : finalTheme.backgroundColor,
-    // Remove the white line by setting borderTopWidth to 0
-    borderTopWidth: 0,
-    paddingBottom: Platform.OS === "ios" ? insets.bottom : 0,
-    shadowColor: finalTheme.shadowColor,
+    // Floating effect with rounded corners
+    borderRadius: 20,
+    marginHorizontal: 16,
+    marginBottom: Platform.OS === "ios" ? insets.bottom + 8 : 8,
+    paddingVertical: 8,
+    paddingHorizontal: 4,
+    // Enhanced shadow for floating effect
+    shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: -2,
+      height: 8,
     },
-    shadowOpacity: finalTheme.shadowOpacity,
-    shadowRadius: finalTheme.shadowRadius,
-    elevation: finalTheme.elevation,
-    position: "relative",
+    shadowOpacity: 0.25,
+    shadowRadius: 12,
+    elevation: 16,
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    right: 0,
     overflow: "hidden",
   };
 
   return (
     <View style={tabBarStyle}>
-      {/* Blur background */}
+      {/* Enhanced blur background for floating effect */}
       {finalTheme.blurEnabled && (
         <BlurView
-          tint={finalTheme.blurTint}
-          intensity={finalTheme.blurIntensity}
+          tint={Platform.OS === "ios" ? "systemUltraThinMaterial" : "light"}
+          intensity={Platform.OS === "ios" ? 80 : 100}
           style={{
             position: "absolute",
             top: 0,
             left: 0,
             right: 0,
             bottom: 0,
+            borderRadius: 20,
           }}
         />
       )}
