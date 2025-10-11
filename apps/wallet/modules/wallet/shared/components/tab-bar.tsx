@@ -244,7 +244,7 @@ export const TabBar = ({
     flexDirection: "row",
     backgroundColor: finalTheme.blurEnabled
       ? "transparent"
-      : finalTheme.backgroundColor,
+      : "rgba(0, 0, 0, 0.8)", // Temporary dark background for debugging
     // Floating effect with rounded corners
     borderRadius: 20,
     marginHorizontal: 16,
@@ -281,26 +281,29 @@ export const TabBar = ({
             right: 0,
             bottom: 0,
             borderRadius: 20,
+            zIndex: 0,
           }}
         />
       )}
 
-      {/* Tab items */}
-      {state.routes.map((route, index) => {
-        const isFocused = state.index === index;
+      {/* Tab items with higher z-index */}
+      <View style={{ zIndex: 1, flexDirection: "row", flex: 1 }}>
+        {state.routes.map((route, index) => {
+          const isFocused = state.index === index;
 
-        return (
-          <TabBarItem
-            key={route.key}
-            route={route}
-            descriptor={descriptors[route.key]}
-            navigation={navigation}
-            state={state}
-            focused={isFocused}
-            theme={finalTheme}
-          />
-        );
-      })}
+          return (
+            <TabBarItem
+              key={route.key}
+              route={route}
+              descriptor={descriptors[route.key]}
+              navigation={navigation}
+              state={state}
+              focused={isFocused}
+              theme={finalTheme}
+            />
+          );
+        })}
+      </View>
     </View>
   );
 };

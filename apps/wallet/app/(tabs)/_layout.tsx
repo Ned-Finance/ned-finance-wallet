@@ -24,8 +24,8 @@ export default function TabLayout() {
            inactiveTextClassName: "text-ned-text-muted font-normal",
            activeIconClassName: "text-ned-primary",
            inactiveIconClassName: "text-ned-text-muted",
-           // Floating tab bar with enhanced blur
-           blurEnabled: true,
+           // Temporarily disable blur to debug icon visibility
+           blurEnabled: false,
            blurIntensity: Platform.OS === "ios" ? 80 : 100,
            blurTint: Platform.OS === "ios" ? "systemUltraThinMaterial" : "light",
            iconSize: 28,
