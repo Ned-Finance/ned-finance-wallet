@@ -4,7 +4,6 @@ type Theme = "main" | "neon";
 
 const themes: Record<Theme, ReturnType<typeof vars>> = {
   main: vars({
-    "--color-primary": "0 239 209",
     "--ned-primary": "0 239 209",
     "--ned-secondary": "42 170 244",
     "--ned-info": "255 173 96",

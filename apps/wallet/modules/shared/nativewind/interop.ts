@@ -1,19 +1,22 @@
-// import BottomSheet, {
-//   BottomSheetModal,
-//   BottomSheetView,
-// } from "@gorhom/bottom-sheet";
-// import { styled } from "nativewind";
+import BottomSheet, {
+  BottomSheetModal,
+  BottomSheetView,
+} from "@gorhom/bottom-sheet";
+import { cssInterop } from "nativewind";
+import { SafeAreaView } from "react-native-safe-area-context";
 
-// styled(BottomSheet, {
-//   className: "style",
-// });
+cssInterop(SafeAreaView, {
+  className: "style",
+});
 
-// styled(BottomSheetView, {
-//   className: { target: "style" },
-// });
+cssInterop(BottomSheet, {
+  className: "style",
+});
 
-// styled(BottomSheetModal, {
-//   backgroundClassName: { target: "backgroundStyle" },
-//   handleIndicatorClassName: { target: "handleIndicatorStyle" },
-//   className: { target: "style" },
-// });
+cssInterop(BottomSheetView, {
+  className: "style",
+});
+
+cssInterop(BottomSheetModal, {
+  className: "style",
+});

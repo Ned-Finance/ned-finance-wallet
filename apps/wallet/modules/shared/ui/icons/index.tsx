@@ -1,1 +1,1 @@
-export * from "./icon.nativewind";
+export * from "./icons";

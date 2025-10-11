@@ -17,7 +17,7 @@ const fakeToken = {
 };
 
 export const TokenList = ({ height, width }: PageSizeProps) => {
-  const DATA: TokenBalance[] = new Array(10).fill(fakeToken, 0, 10);
+  const DATA: TokenBalance[] = new Array(100).fill(fakeToken, 0, 100);
 
   return (
     <View
@@ -27,7 +27,6 @@ export const TokenList = ({ height, width }: PageSizeProps) => {
         data={DATA}
         removeClippedSubviews={false}
         nestedScrollEnabled
-        estimatedItemSize={80}
         getItemType={(item) => "token"}
         renderItem={({ item }) => (
           <TokenListItem

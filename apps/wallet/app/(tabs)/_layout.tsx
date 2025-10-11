@@ -8,26 +8,26 @@ import { PricingRefresher } from "@/modules/pricing";
 import { HapticTab } from "@/modules/shared/ui/tabs/haptic-tab";
 
 import { Icon } from "@/modules/shared/ui";
-import { TabBar } from "@/modules/wallet/shared/components/tab-bar";
+import { TabBar } from "@/modules/shared/ui/tab-bar";
 
 export default function TabLayout() {
   const TabBarComponent = useCallback(
     (props: BottomTabBarProps) => (
       <TabBar
         {...props}
-         theme={{
-           activeTextClassName: "text-ned-primary font-semibold",
-           inactiveTextClassName: "text-ned-text-muted font-normal",
-           activeIconClassName: "text-ned-primary",
-           inactiveIconClassName: "text-ned-text-muted",
-           // Reactivate blur effect for floating tab bar
-           blurEnabled: true,
-           blurIntensity: Platform.OS === "ios" ? 80 : 100,
-           blurTint: Platform.OS === "ios" ? "systemUltraThinMaterial" : "light",
-           iconSize: 28,
-           textSize: 12,
-           paddingVertical: 12,
-         }}
+        theme={{
+          activeTextClassName: "text-ned-primary font-semibold",
+          inactiveTextClassName: "text-ned-text-muted font-normal",
+          activeIconClassName: "text-ned-primary",
+          inactiveIconClassName: "text-ned-text-muted",
+          // Reactivate blur effect for floating tab bar
+          blurEnabled: true,
+          blurIntensity: Platform.OS === "ios" ? 80 : 20,
+          blurTint: Platform.OS === "ios" ? "systemUltraThinMaterial" : "light",
+          iconSize: 28,
+          textSize: 12,
+          paddingVertical: 12,
+        }}
       />
     ),
     []

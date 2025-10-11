@@ -1,91 +1,18 @@
-/**
- * Custom TabBar Component for Expo Router
- *
- * This component provides a fully customizable tab bar implementation that works with Expo Router.
- * You can customize every aspect of the tab bar including colors, sizes, spacing, and shadows.
- *
- * Usage Examples:
- *
- * 1. Basic usage with default theme:
- *    <TabBar {...props} />
- *
- * 2. Custom theme with Tailwind classes:
- *    <TabBar
- *      {...props}
- *      theme={{
- *        activeTextClassName: 'text-red-500 font-bold',
- *        inactiveTextClassName: 'text-gray-500 font-normal',
- *        activeIconClassName: 'text-red-500',
- *        inactiveIconClassName: 'text-gray-500',
- *        backgroundColor: '#FFFFFF',
- *        iconSize: 28,
- *        textSize: 14,
- *        paddingVertical: 12,
- *      }}
- *    />
- *
- * 3. Dark theme with custom colors:
- *    <TabBar
- *      {...props}
- *      theme={{
- *        activeTextClassName: 'text-blue-400 font-semibold',
- *        inactiveTextClassName: 'text-gray-400 font-normal',
- *        activeIconClassName: 'text-blue-400',
- *        inactiveIconClassName: 'text-gray-400',
- *        backgroundColor: '#212121',
- *        borderColor: '#424242',
- *        shadowColor: '#000',
- *        shadowOpacity: 0.3,
- *      }}
- *    />
- *
- * 4. Minimal theme:
- *    <TabBar
- *      {...props}
- *      theme={{
- *        activeTextClassName: 'text-black font-semibold',
- *        inactiveTextClassName: 'text-gray-300 font-normal',
- *        activeIconClassName: 'text-black',
- *        inactiveIconClassName: 'text-gray-300',
- *        backgroundColor: 'transparent',
- *        borderColor: 'transparent',
- *        shadowOpacity: 0,
- *        elevation: 0,
- *        paddingVertical: 16,
- *      }}
- *    />
- *
- * 5. Blur effect theme:
- *    <TabBar
- *      {...props}
- *      theme={{
- *        blurEnabled: true,
- *        blurIntensity: 100,
- *        blurTint: 'systemChromeMaterial',
- *        activeTextClassName: 'text-blue-500 font-semibold',
- *        inactiveTextClassName: 'text-gray-500 font-normal',
- *        activeIconClassName: 'text-blue-500',
- *        inactiveIconClassName: 'text-gray-500',
- *      }}
- *    />
- */
-
-import { HapticTab } from "@/modules/shared/ui/tabs/haptic-tab";
 import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
-import { NavigationState, Route } from "@react-navigation/native";
+import { Route } from "@react-navigation/native";
 import { BlurView } from "expo-blur";
-import { Platform, Text, View, ViewStyle } from "react-native";
+import { Platform, View, ViewStyle } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { HapticTab } from "../tabs/haptic-tab";
 
-interface TabBarItemProps {
+type TabBarItemProps = {
   route: Route<string>;
   descriptor: BottomTabBarProps["descriptors"][string];
   navigation: BottomTabBarProps["navigation"];
-  state: NavigationState;
   focused: boolean;
-}
+};
 
-interface TabBarTheme {
+type TabBarTheme = {
   backgroundColor?: string;
   borderColor?: string;
   activeTextClassName?: string;
@@ -112,28 +39,20 @@ interface TabBarTheme {
     | "systemThickMaterial"
     | "systemThinMaterial"
     | "systemUltraThinMaterial";
-}
+};
 
-interface CustomTabBarProps extends BottomTabBarProps {
+type CustomTabBarProps = BottomTabBarProps & {
   theme?: TabBarTheme;
-}
+};
 
 const TabBarItem = ({
   route,
   descriptor,
   navigation,
-  state,
   focused,
   theme,
 }: TabBarItemProps & { theme?: TabBarTheme }) => {
   const { options } = descriptor;
-  let label = options.tabBarLabel;
-  if (typeof label !== "string") {
-    label = options.title;
-  }
-  if (typeof label !== "string") {
-    label = route.name;
-  }
 
   const onPress = () => {
     const event = navigation.emit({
@@ -155,19 +74,13 @@ const TabBarItem = ({
   };
 
   // Get className and size from theme or use defaults
-  const activeTextClassName =
-    theme?.activeTextClassName || "text-ned-primary font-semibold";
-  const inactiveTextClassName =
-    theme?.inactiveTextClassName || "text-ned-text-muted font-normal";
   const activeIconClassName = theme?.activeIconClassName || "text-ned-primary";
   const inactiveIconClassName =
     theme?.inactiveIconClassName || "text-ned-text-muted";
   const iconSize = theme?.iconSize || 24;
-  const textSize = theme?.textSize || 12;
   const paddingVertical = theme?.paddingVertical || 8;
   const paddingHorizontal = theme?.paddingHorizontal || 4;
 
-  const textClassName = focused ? activeTextClassName : inactiveTextClassName;
   const iconClassName = focused ? activeIconClassName : inactiveIconClassName;
 
   return (
@@ -194,14 +107,6 @@ const TabBarItem = ({
             } as any)}
           </View>
         )}
-        <Text
-          className={textClassName}
-          style={{
-            fontSize: textSize,
-            textAlign: "center",
-          }}>
-          {label}
-        </Text>
       </View>
     </HapticTab>
   );
@@ -233,7 +138,7 @@ export const TabBar = ({
     elevation: 16,
     // Enhanced blur effect defaults
     blurEnabled: true,
-    blurIntensity: Platform.OS === "ios" ? 80 : 100,
+    blurIntensity: Platform.OS === "ios" ? 80 : 10,
     blurTint: Platform.OS === "ios" ? "systemUltraThinMaterial" : "light",
   };
 
@@ -246,7 +151,7 @@ export const TabBar = ({
       ? "transparent"
       : finalTheme.backgroundColor,
     // Floating effect with rounded corners
-    borderRadius: 20,
+    borderRadius: 50,
     marginHorizontal: 16,
     marginBottom: Platform.OS === "ios" ? insets.bottom + 8 : 8,
     paddingVertical: 8,
@@ -271,38 +176,20 @@ export const TabBar = ({
     <View style={tabBarStyle}>
       {/* Enhanced blur background for floating effect */}
       {finalTheme.blurEnabled && (
-        <>
-          {Platform.OS === "ios" ? (
-            <BlurView
-              tint="systemUltraThinMaterial"
-              intensity={80}
-              style={{
-                position: "absolute",
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                borderRadius: 20,
-                zIndex: 0,
-              }}
-            />
-          ) : (
-            // Android blur with higher intensity
-            <BlurView
-              tint="dark"
-              intensity={100}
-              style={{
-                position: "absolute",
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                borderRadius: 20,
-                zIndex: 0,
-              }}
-            />
-          )}
-        </>
+        <BlurView
+          tint="dark"
+          intensity={finalTheme.blurIntensity}
+          experimentalBlurMethod={"dimezisBlurView"}
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            borderRadius: 20,
+            zIndex: 0,
+          }}
+        />
       )}
 
       {/* Tab items with higher z-index */}
@@ -316,7 +203,6 @@ export const TabBar = ({
               route={route}
               descriptor={descriptors[route.key]}
               navigation={navigation}
-              state={state}
               focused={isFocused}
               theme={finalTheme}
             />

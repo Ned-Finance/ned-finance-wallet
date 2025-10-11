@@ -7,6 +7,7 @@ export type TabLayout = {
 
 export type TabElement = {
   text: string;
+  icon?: React.ReactNode;
 };
 
 export type TabsProps<T extends TabElement> = {

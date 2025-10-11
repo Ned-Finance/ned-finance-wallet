@@ -23,7 +23,6 @@ export const ThemeProvider: React.FC<{
   // Load theme variables from themes.ts
   const themeVars = themes[theme];
 
-  console.log("🎨 Themes:", themes);
   console.log("🎨 Theme loaded:", theme);
   console.log("🎨 Theme vars:", themeVars);
 

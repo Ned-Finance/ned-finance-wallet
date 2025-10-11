@@ -52,7 +52,7 @@
     "idb-keyval": "^6.2.2",
     "immer": "^10.1.1",
     "lucide-react-native": "^0.536.0",
-    "nativewind": "^5.0.0-preview.1",
+    "nativewind": "^4.1.23",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-i18next": "^15.6.1",
@@ -72,7 +72,6 @@
     "zustand": "^5.0.8"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4.1.14",
     "@testing-library/jest-native": "^5.4.3",
     "@testing-library/react-native": "^13.3.3",
     "@types/jest": "^30.0.0",
@@ -88,7 +87,7 @@
     "jest-expo": "^54.0.12",
     "postcss": "^8.5.6",
     "prettier-plugin-tailwindcss": "^0.5.14",
-    "tailwindcss": "^4.1.14",
+    "tailwindcss": "^3.4.17",
     "ts-jest": "^29.4.4",
     "typescript": "~5.9.2"
   },

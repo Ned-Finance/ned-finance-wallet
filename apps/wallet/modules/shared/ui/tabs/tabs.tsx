@@ -119,6 +119,8 @@ export function Tabs<T extends TabElement>({
               <View className="px-4 py-2 rounded-2xl flex h-full items-center justify-center">
                 <Animated.Text
                   style={{
+                    fontSize: 15,
+                    fontWeight: "500",
                     transitionProperty: "color",
                     transitionDuration: "300ms",
                     color: tabIndex === index ? textActiveColor : textColor,
