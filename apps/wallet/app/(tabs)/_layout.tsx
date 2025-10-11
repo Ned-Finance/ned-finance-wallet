@@ -1,6 +1,7 @@
 import { Tabs } from "expo-router";
-import React from "react";
+import React, { useCallback } from "react";
 import { Platform, View } from "react-native";
+import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
 
 import TabBarBackground from "@/components/ui/TabBarBackground";
 import { PricingRefresher } from "@/modules/pricing";
@@ -13,37 +14,37 @@ const getIconTabBarClasses = (focused: boolean) => {
   return focused ? "text-ned-primary" : "text-ned-text-muted";
 };
 
-const TabBarComponent = (props: any) => (
-  <TabBar
-    {...props}
-    theme={{
-      activeTextClassName: "text-ned-primary font-semibold",
-      inactiveTextClassName: "text-ned-text-muted font-normal",
-      activeIconClassName: "text-ned-primary",
-      inactiveIconClassName: "text-ned-text-muted",
-      // Enable blur effect instead of solid background
-      blurEnabled: true,
-      blurIntensity: 100,
-      blurTint: Platform.OS === "ios" ? "systemChromeMaterial" : "default",
-      iconSize: 28,
-      textSize: 12,
-    }}
-  />
-);
-
-const ScreenLayout = ({ children }: { children: React.ReactNode }) => (
-  <View className="flex-1 bg-ned-background">{children}</View>
-);
-
-const WalletIcon = ({ focused }: { focused: boolean }) => (
-  <Icon name="Wallet" className={getIconTabBarClasses(focused)} />
-);
-
-const ExploreIcon = ({ focused }: { focused: boolean }) => (
-  <Icon name="ArrowLeftRight" className={getIconTabBarClasses(focused)} />
-);
-
 export default function TabLayout() {
+  const TabBarComponent = useCallback((props: BottomTabBarProps) => (
+    <TabBar
+      {...props}
+      theme={{
+        activeTextClassName: "text-ned-primary font-semibold",
+        inactiveTextClassName: "text-ned-text-muted font-normal",
+        activeIconClassName: "text-ned-primary",
+        inactiveIconClassName: "text-ned-text-muted",
+        // Enable blur effect instead of solid background
+        blurEnabled: true,
+        blurIntensity: 100,
+        blurTint: Platform.OS === "ios" ? "systemChromeMaterial" : "default",
+        iconSize: 28,
+        textSize: 12,
+      }}
+    />
+  ), []);
+
+  const ScreenLayout = useCallback(({ children }: { children: React.ReactNode }) => (
+    <View className="flex-1 bg-ned-background">{children}</View>
+  ), []);
+
+  const WalletIcon = useCallback(({ focused }: { focused: boolean }) => (
+    <Icon name="Wallet" className={getIconTabBarClasses(focused)} />
+  ), []);
+
+  const ExploreIcon = useCallback(({ focused }: { focused: boolean }) => (
+    <Icon name="ArrowLeftRight" className={getIconTabBarClasses(focused)} />
+  ), []);
+
   return (
     <>
       <PricingRefresher />
