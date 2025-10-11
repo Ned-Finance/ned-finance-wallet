@@ -1,18 +1,13 @@
 import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
 import { Tabs } from "expo-router";
 import React, { useCallback } from "react";
-import { Platform, View } from "react-native";
+import { Platform, View, Text } from "react-native";
 
 import TabBarBackground from "@/components/ui/TabBarBackground";
 import { PricingRefresher } from "@/modules/pricing";
 import { HapticTab } from "@/modules/shared/ui/tabs/haptic-tab";
 
-import { Icon } from "@/modules/shared/ui";
 import { TabBar } from "@/modules/wallet/shared/components/tab-bar";
-
-const getIconTabBarClasses = (focused: boolean) => {
-  return focused ? "text-ned-primary" : "text-ned-text-muted";
-};
 
 export default function TabLayout() {
   const TabBarComponent = useCallback(
@@ -20,10 +15,10 @@ export default function TabLayout() {
       <TabBar
         {...props}
          theme={{
-           activeTextClassName: "text-ned-primary font-semibold",
-           inactiveTextClassName: "text-ned-text-muted font-normal",
-           activeIconClassName: "text-ned-primary",
-           inactiveIconClassName: "text-ned-text-muted",
+           activeTextClassName: "text-white font-semibold",
+           inactiveTextClassName: "text-gray-400 font-normal",
+           activeIconClassName: "text-white",
+           inactiveIconClassName: "text-gray-400",
            // Temporarily disable blur to debug icon visibility
            blurEnabled: false,
            blurIntensity: Platform.OS === "ios" ? 80 : 100,
@@ -46,20 +41,32 @@ export default function TabLayout() {
 
   const WalletIcon = useCallback(
     ({ focused }: { focused: boolean }) => (
-      <Icon
-        name="Wallet"
-        className={getIconTabBarClasses(focused)}
-      />
+      <View style={{ 
+        width: 28, 
+        height: 28, 
+        backgroundColor: focused ? 'white' : 'gray',
+        borderRadius: 4,
+        justifyContent: 'center',
+        alignItems: 'center'
+      }}>
+        <Text style={{ color: focused ? 'black' : 'white', fontSize: 12 }}>W</Text>
+      </View>
     ),
     []
   );
 
   const ExploreIcon = useCallback(
     ({ focused }: { focused: boolean }) => (
-      <Icon
-        name="ArrowLeftRight"
-        className={getIconTabBarClasses(focused)}
-      />
+      <View style={{ 
+        width: 28, 
+        height: 28, 
+        backgroundColor: focused ? 'white' : 'gray',
+        borderRadius: 4,
+        justifyContent: 'center',
+        alignItems: 'center'
+      }}>
+        <Text style={{ color: focused ? 'black' : 'white', fontSize: 12 }}>E</Text>
+      </View>
     ),
     []
   );
