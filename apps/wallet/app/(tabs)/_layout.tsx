@@ -1,12 +1,13 @@
 import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
 import { Tabs } from "expo-router";
 import React, { useCallback } from "react";
-import { Platform, View, Text } from "react-native";
+import { Platform, View } from "react-native";
 
 import TabBarBackground from "@/components/ui/TabBarBackground";
 import { PricingRefresher } from "@/modules/pricing";
 import { HapticTab } from "@/modules/shared/ui/tabs/haptic-tab";
 
+import { Icon } from "@/modules/shared/ui";
 import { TabBar } from "@/modules/wallet/shared/components/tab-bar";
 
 export default function TabLayout() {
@@ -14,19 +15,19 @@ export default function TabLayout() {
     (props: BottomTabBarProps) => (
       <TabBar
         {...props}
-         theme={{
-           activeTextClassName: "text-white font-semibold",
-           inactiveTextClassName: "text-gray-400 font-normal",
-           activeIconClassName: "text-white",
-           inactiveIconClassName: "text-gray-400",
-           // Temporarily disable blur to debug icon visibility
-           blurEnabled: false,
-           blurIntensity: Platform.OS === "ios" ? 80 : 100,
-           blurTint: Platform.OS === "ios" ? "systemUltraThinMaterial" : "light",
-           iconSize: 28,
-           textSize: 12,
-           paddingVertical: 12,
-         }}
+        theme={{
+          activeTextClassName: "text-white font-semibold",
+          inactiveTextClassName: "text-gray-400 font-normal",
+          activeIconClassName: "text-white",
+          inactiveIconClassName: "text-gray-400",
+          // Temporarily disable blur to debug icon visibility
+          blurEnabled: false,
+          blurIntensity: Platform.OS === "ios" ? 80 : 100,
+          blurTint: Platform.OS === "ios" ? "systemUltraThinMaterial" : "light",
+          iconSize: 28,
+          textSize: 12,
+          paddingVertical: 12,
+        }}
       />
     ),
     []
@@ -41,32 +42,22 @@ export default function TabLayout() {
 
   const WalletIcon = useCallback(
     ({ focused }: { focused: boolean }) => (
-      <View style={{ 
-        width: 28, 
-        height: 28, 
-        backgroundColor: focused ? 'white' : 'gray',
-        borderRadius: 4,
-        justifyContent: 'center',
-        alignItems: 'center'
-      }}>
-        <Text style={{ color: focused ? 'black' : 'white', fontSize: 12 }}>W</Text>
-      </View>
+      <Icon
+        name="Wallet"
+        className={focused ? "text-white" : "text-gray-400"}
+        strokeWidth={2}
+      />
     ),
     []
   );
 
   const ExploreIcon = useCallback(
     ({ focused }: { focused: boolean }) => (
-      <View style={{ 
-        width: 28, 
-        height: 28, 
-        backgroundColor: focused ? 'white' : 'gray',
-        borderRadius: 4,
-        justifyContent: 'center',
-        alignItems: 'center'
-      }}>
-        <Text style={{ color: focused ? 'black' : 'white', fontSize: 12 }}>E</Text>
-      </View>
+      <Icon
+        name="ArrowLeftRight"
+        className={focused ? "text-white" : "text-gray-400"}
+        strokeWidth={2}
+      />
     ),
     []
   );
