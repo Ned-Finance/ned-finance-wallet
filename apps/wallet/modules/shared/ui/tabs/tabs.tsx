@@ -1,4 +1,5 @@
 import { useTheme } from "@/modules/user/preferences/providers/theme-provider";
+import { Image } from "expo-image";
 import React, { useEffect, useMemo, useState } from "react";
 import { LayoutChangeEvent, Pressable, ScrollView, View } from "react-native";
 import Animated from "react-native-reanimated";
@@ -8,7 +9,7 @@ export function Tabs<T extends TabElement>({
   elements,
   onIndexChange,
 }: Readonly<TabsProps<T>>) {
-  const { themeVars } = useTheme();
+  const { themeValues } = useTheme();
 
   const [tabLayouts, setTabLayouts] = useState<{
     [key: string]: TabLayout;
@@ -37,29 +38,43 @@ export function Tabs<T extends TabElement>({
     }));
   };
 
+  const themeBackgroundActiveColor = "--ned-background-secondary";
+  const themeBorderColor = "--ned-background-secondary";
+  const themeTextActiveColor = "--ned-inverse";
+  const themeTextColor = "--ned-text-secondary";
+
   const backgroundActiveColor = useMemo(() => {
-    const primaryColor = themeVars?.["--ned-primary"];
+    console.log("themeValues", themeValues);
+    const primaryColor = themeValues?.[themeBackgroundActiveColor];
     if (!primaryColor || typeof primaryColor !== "string") {
       return "rgb(0, 239, 209)"; // fallback color
     }
     return `rgb(${primaryColor.split(" ").join(",")})`;
-  }, [themeVars]);
+  }, [themeValues]);
+
+  const borderColor = useMemo(() => {
+    const primaryColor = themeValues?.[themeBorderColor];
+    if (!primaryColor || typeof primaryColor !== "string") {
+      return "rgb(0, 239, 209)"; // fallback color
+    }
+    return `rgb(${primaryColor.split(" ").join(",")})`;
+  }, [themeValues]);
 
   const textActiveColor = useMemo(() => {
-    const textInverseColor = themeVars?.["--ned-text-inverse"];
+    const textInverseColor = themeValues?.[themeTextActiveColor];
     if (!textInverseColor || typeof textInverseColor !== "string") {
       return "rgb(10, 10, 10)"; // fallback color
     }
     return `rgb(${textInverseColor.split(" ").join(",")})`;
-  }, [themeVars]);
+  }, [themeValues]);
 
   const textColor = useMemo(() => {
-    const textSecondaryColor = themeVars?.["--ned-text-secondary"];
+    const textSecondaryColor = themeValues?.[themeTextColor];
     if (!textSecondaryColor || typeof textSecondaryColor !== "string") {
       return "rgb(150, 150, 150)"; // fallback color
     }
     return `rgb(${textSecondaryColor.split(" ").join(",")})`;
-  }, [themeVars]);
+  }, [themeValues]);
 
   useEffect(() => {
     if (onIndexChange) {
@@ -89,8 +104,10 @@ export function Tabs<T extends TabElement>({
               left: tabLayouts[key].x,
               width: tabLayouts[key].width,
               height: tabLayouts[key].height,
+              borderColor: borderColor,
+              borderWidth: 1,
             }}
-            className="rounded-2xl"
+            className="rounded-3xl"
           />
         ))}
 
@@ -99,14 +116,15 @@ export function Tabs<T extends TabElement>({
             style={{
               position: "absolute",
               transitionProperty: ["width", "left", "top", "height"],
-              transitionDuration: "300ms",
+              transitionDuration: "200ms",
               backgroundColor: backgroundActiveColor,
+              borderWidth: 1,
               top: layoutSelectedTab?.y,
               left: layoutSelectedTab?.x,
               width: layoutSelectedTab?.width,
               height: layoutSelectedTab?.height,
             }}
-            className="rounded-2xl"
+            className="rounded-3xl"
           />
         )}
 
@@ -116,13 +134,21 @@ export function Tabs<T extends TabElement>({
             className="flex-1"
             onLayout={(event) => handleLayout({ event, index })}>
             <Pressable onPress={() => setTabIndex(index)}>
-              <View className="px-4 py-2 rounded-2xl flex h-full items-center justify-center">
+              <View className="px-4 py-2 rounded-3xl flex h-full items-center justify-center flex-row">
+                <Image
+                  style={{
+                    width: element.iconSize || 20,
+                    height: element.iconSize || 20,
+                    marginRight: 8,
+                  }}
+                  source={element.icon}
+                  contentFit="cover"
+                  transition={1000}
+                />
                 <Animated.Text
                   style={{
-                    fontSize: 15,
-                    fontWeight: "500",
                     transitionProperty: "color",
-                    transitionDuration: "300ms",
+                    transitionDuration: "200ms",
                     color: tabIndex === index ? textActiveColor : textColor,
                   }}>
                   {element.text}

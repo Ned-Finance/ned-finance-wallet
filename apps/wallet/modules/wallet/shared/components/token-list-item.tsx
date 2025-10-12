@@ -6,7 +6,7 @@ import { Text, View } from "react-native";
 
 export const TokenListItem = ({ token, amount }: TokenBalance) => {
   return (
-    <View className="flex-row items-center p-4">
+    <View className="flex-row items-center p-4 bg-ned-background-secondary rounded-xl">
       <View className="flex-row items-center gap-2 flex-1">
         <Image
           source={{ uri: token.imageUrl }}

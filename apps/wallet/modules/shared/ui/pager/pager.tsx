@@ -9,7 +9,11 @@ import Animated, {
 import { Dot } from "./dot";
 import { Page, PagerProps } from "./pager.props";
 
-export const Pager = ({ pages, showIndicator = true }: PagerProps) => {
+export const Pager = ({
+  pages,
+  showIndicator = true,
+  className,
+}: PagerProps) => {
   const x = useSharedValue(0);
   const listRef = useRef<FlatList<Page>>(null);
 
@@ -43,7 +47,7 @@ export const Pager = ({ pages, showIndicator = true }: PagerProps) => {
 
   return (
     <View
-      className="flex-1"
+      className={`flex-1 ${className}`}
       onLayout={(event) => {
         setHeight(event.nativeEvent.layout.height);
         setWidth(event.nativeEvent.layout.width);

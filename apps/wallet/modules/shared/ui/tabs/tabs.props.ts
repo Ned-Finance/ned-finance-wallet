@@ -1,3 +1,5 @@
+import { ImageSource } from "expo-image";
+
 export type TabLayout = {
   x: number;
   y: number;
@@ -7,7 +9,8 @@ export type TabLayout = {
 
 export type TabElement = {
   text: string;
-  icon?: React.ReactNode;
+  icon?: ImageSource;
+  iconSize?: number;
 };
 
 export type TabsProps<T extends TabElement> = {

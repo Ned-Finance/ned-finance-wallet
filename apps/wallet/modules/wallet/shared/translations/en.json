@@ -2,14 +2,19 @@
   "wallet": {
     "main": {
       "actions": {
-        "buy": "Buy",
-        "send": "Send"
+        "send": "Send",
+        "deposit": "Deposit"
       },
+      "assets": "Assets",
+      "balance": "Balance",
       "options": {
         "tokens": "Tokens",
         "collectibles": "Collectibles",
         "portfolio": "Portfolio"
       }
     }
+  },
+  "common": {
+    "viewAll": "View All"
   }
 }

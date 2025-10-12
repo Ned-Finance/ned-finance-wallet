@@ -1,5 +1,8 @@
 import { Theme } from "@/modules/shared/types/ui/themes";
-import themes from "@/modules/shared/utils/ui/themes";
+import {
+  themeValues as _themeValues,
+  themes,
+} from "@/modules/shared/utils/ui/themes";
 import { usePreferencesStore } from "@/modules/user/preferences/store/preferences-store";
 import { createContext, useContext } from "react";
 import { View } from "react-native";
@@ -7,6 +10,7 @@ import { View } from "react-native";
 interface ThemeContextType {
   theme: Theme;
   themeVars: any;
+  themeValues: Record<string, string>;
   updateTheme: (theme: Theme) => void;
 }
 
@@ -22,12 +26,14 @@ export const ThemeProvider: React.FC<{
 
   // Load theme variables from themes.ts
   const themeVars = themes[theme];
+  const themeValues = _themeValues[theme];
 
   console.log("🎨 Theme loaded:", theme);
   console.log("🎨 Theme vars:", themeVars);
 
   return (
-    <ThemeContext.Provider value={{ theme, themeVars, updateTheme }}>
+    <ThemeContext.Provider
+      value={{ theme, themeVars, themeValues, updateTheme }}>
       <View
         style={themeVars}
         className="flex-1 bg-ned-background">

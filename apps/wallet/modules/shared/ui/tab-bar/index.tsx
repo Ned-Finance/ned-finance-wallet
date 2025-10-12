@@ -152,8 +152,8 @@ export const TabBar = ({
       : finalTheme.backgroundColor,
     // Floating effect with rounded corners
     borderRadius: 50,
-    marginHorizontal: 16,
-    marginBottom: Platform.OS === "ios" ? insets.bottom + 8 : 8,
+    marginHorizontal: 35,
+    marginBottom: Platform.OS === "ios" ? insets.bottom + 20 : 20,
     paddingVertical: 8,
     paddingHorizontal: 4,
     // Enhanced shadow for floating effect
