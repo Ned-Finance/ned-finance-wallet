@@ -118,6 +118,7 @@ export function Tabs<T extends TabElement>({
               transitionProperty: ["width", "left", "top", "height"],
               transitionDuration: "200ms",
               backgroundColor: backgroundActiveColor,
+              borderColor: borderColor,
               borderWidth: 1,
               top: layoutSelectedTab?.y,
               left: layoutSelectedTab?.x,

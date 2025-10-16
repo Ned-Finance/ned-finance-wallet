@@ -12,10 +12,10 @@ export function WalletActions() {
       <Button
         className="!rounded-full !bg-ned-background-secondary !px-9 !pl-2 pr-4 !py-2 w-auto flex  flex-grow !justify-start"
         onPress={() => {}}>
-        <View className="flex-row items-center gap-2 bg-ned-background rounded-full p-2 mr-4 self-start">
+        <View className="flex-row items-center justify-center gap-2 bg-ned-primary rounded-full p-2 mr-4 self-start h-10 w-10">
           <Icon
             name="Send"
-            className="w-6 h-6 text-ned-inverse"
+            className="w-5 h-5 text-ned-text-inverse"
           />
         </View>
         <View className="flex-1 items-center justify-center">
@@ -27,10 +27,10 @@ export function WalletActions() {
       <Button
         className="!rounded-full !bg-ned-background-secondary !px-9 !pl-2 pr-4 !py-2 flex flex-grow !justify-start"
         onPress={() => {}}>
-        <View className="flex-row items-center gap-2 bg-ned-background rounded-full p-2 mr-4">
+        <View className="flex-row items-center justify-center gap-2 bg-ned-primary rounded-full p-2 mr-4  h-10 w-10">
           <Icon
             name="ArrowDown"
-            className="w-6 h-6 text-ned-inverse"
+            className="w-5 h-5 text-ned-text-inverse"
           />
         </View>
         <View className="flex-1 items-center justify-center">
@@ -40,11 +40,11 @@ export function WalletActions() {
         </View>
       </Button>
       <Button
-        className="!rounded-full !bg-ned-background-secondary !px-4 !py-2"
+        className="!rounded-full !bg-ned-primary !px-4 !py-2"
         onPress={() => {}}>
         <Icon
           name="Plus"
-          className="w-6 h-6 text-ned-inverse"
+          className="w-6 h-6 text-ned-text-inverse"
         />
       </Button>
     </View>

@@ -1,4 +1,5 @@
 import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
+import { LinearGradient } from "expo-linear-gradient";
 import { Tabs } from "expo-router";
 import React, { useCallback } from "react";
 import { Platform, View } from "react-native";
@@ -35,7 +36,22 @@ export default function TabLayout() {
 
   const ScreenLayout = useCallback(
     ({ children }: { children: React.ReactNode }) => (
-      <View className="flex-1 bg-ned-background">{children}</View>
+      <View className="flex-1 bg-ned-background">
+        <LinearGradient
+          colors={["#00ACEA", "rgba(10, 10, 10, 0)"]}
+          locations={[0.1, 1]}
+          style={{
+            position: "absolute",
+            opacity: 0.2,
+            top: 0,
+            left: 0,
+            right: 0,
+            height: 180,
+            zIndex: 10,
+          }}
+        />
+        <View className="flex-1 z-20">{children}</View>
+      </View>
     ),
     []
   );

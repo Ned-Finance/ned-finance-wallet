@@ -2,6 +2,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { Text, View } from "react-native";
 import { useWallet } from "../../shared/hooks/use-wallet";
+import { WalletActions } from "./wallet-actions";
 
 export function WalletBalance() {
   const { currentBalance } = useWallet();
@@ -13,6 +14,7 @@ export function WalletBalance() {
         {t("wallet.main.balance")}
       </Text>
       <Text className="text-5xl text-ned-text my-4">{currentBalance}</Text>
+      <WalletActions />
     </View>
   );
 }

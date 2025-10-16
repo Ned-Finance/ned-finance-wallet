@@ -8,7 +8,7 @@ export const WalletHeader = () => {
   const currentAccount = useCurrentAccount();
   return (
     <View className="flex-row">
-      <View className="flex-row items-center justify-between">
+      <View className="flex-row items-center justify-between bg-ned-inverse/10 rounded-full px-4 py-2">
         <Icon
           name="WalletMinimal"
           className="text-ned-primary"
