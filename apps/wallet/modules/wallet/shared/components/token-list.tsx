@@ -27,10 +27,10 @@ export const TokenList = ({ height, width }: PageSizeProps) => {
       style={{ height, width }}
       className="overflow-visible">
       <View className="flex flex-row items-center justify-center self-end mb-4">
-        <Text className="text-ned-text-secondary ">{t("common.viewAll")}</Text>
+        <Text className="text-ned-text">{t("common.viewAll")}</Text>
         <Icon
           name="ChevronRight"
-          className="text-ned-text-secondary w-6 h-6"
+          className="text-ned-text w-6 h-6"
         />
       </View>
       <FlashList

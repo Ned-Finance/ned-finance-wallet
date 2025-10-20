@@ -13,7 +13,7 @@ export const TokenListItem = ({ token, amount }: TokenBalance) => {
           className="w-6 h-6 rounded-full"
         />
         <View className="flex-1">
-          <Text className="text-ned-text-secondary">{token.name}</Text>
+          <Text className="text-ned-text">{token.name}</Text>
           <Text className="text-ned-text-secondary">
             {formatAmount(amount, token.decimals)} {token.symbol}
           </Text>

@@ -46,7 +46,7 @@ importers:
         version: 0.2.1
       react-native-tcp:
         specifier: ^3.2.1
-        version: 3.3.2(react-native@0.81.4(@babel/core@7.28.0)(@react-native-community/cli@13.6.9(bufferutil@4.0.8)(encoding@0.1.13)(utf-8-validate@5.0.10))(@types/react@19.1.17)(bufferutil@4.0.8)(react@19.1.0)(utf-8-validate@5.0.10))
+        version: 3.3.2(react-native@0.81.4(@babel/core@7.28.0)(@react-native-community/cli@13.6.9(bufferutil@4.0.8)(utf-8-validate@5.0.10))(@types/react@19.1.17)(bufferutil@4.0.8)(react@19.1.0)(utf-8-validate@5.0.10))
       react-native-udp:
         specifier: ^2.1.0
         version: 2.7.0
@@ -177,6 +177,9 @@ importers:
       expo-image:
         specifier: ~3.0.8
         version: 3.0.9(expo@54.0.13)(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.0)(@react-native-community/cli@13.6.9(bufferutil@4.0.8)(encoding@0.1.13)(utf-8-validate@5.0.10))(@types/react@19.1.17)(bufferutil@4.0.8)(react@19.1.0)(utf-8-validate@5.0.10))(react@19.1.0)
+      expo-linear-gradient:
+        specifier: ~15.0.7
+        version: 15.0.7(expo@54.0.13)(react-native@0.81.4(@babel/core@7.28.0)(@react-native-community/cli@13.6.9(bufferutil@4.0.8)(encoding@0.1.13)(utf-8-validate@5.0.10))(@types/react@19.1.17)(bufferutil@4.0.8)(react@19.1.0)(utf-8-validate@5.0.10))(react@19.1.0)
       expo-linking:
         specifier: ~8.0.8
         version: 8.0.8(expo@54.0.13)(react-native@0.81.4(@babel/core@7.28.0)(@react-native-community/cli@13.6.9(bufferutil@4.0.8)(encoding@0.1.13)(utf-8-validate@5.0.10))(@types/react@19.1.17)(bufferutil@4.0.8)(react@19.1.0)(utf-8-validate@5.0.10))(react@19.1.0)
@@ -267,6 +270,9 @@ importers:
       react-native-worklets:
         specifier: ^0.5.1
         version: 0.5.1(@babel/core@7.28.0)(react-native@0.81.4(@babel/core@7.28.0)(@react-native-community/cli@13.6.9(bufferutil@4.0.8)(encoding@0.1.13)(utf-8-validate@5.0.10))(@types/react@19.1.17)(bufferutil@4.0.8)(react@19.1.0)(utf-8-validate@5.0.10))(react@19.1.0)
+      remeda:
+        specifier: ^2.32.0
+        version: 2.32.0
       scrypt-js:
         specifier: ^3.0.1
         version: 3.0.1
@@ -4599,6 +4605,13 @@ packages:
       expo: '*'
       react: '*'
 
+  expo-linear-gradient@15.0.7:
+    resolution: {integrity: sha512-yF+y+9Shpr/OQFfy/wglB/0bykFMbwHBTuMRa5Of/r2P1wbkcacx8rg0JsUWkXH/rn2i2iWdubyqlxSJa3ggZA==}
+    peerDependencies:
+      expo: '*'
+      react: '*'
+      react-native: '*'
+
   expo-linking@8.0.8:
     resolution: {integrity: sha512-MyeMcbFDKhXh4sDD1EHwd0uxFQNAc6VCrwBkNvvvufUsTYFq3glTA9Y8a+x78CPpjNqwNAamu74yIaIz7IEJyg==}
     peerDependencies:
@@ -7532,6 +7545,9 @@ packages:
   regjsparser@0.12.0:
     resolution: {integrity: sha512-cnE+y8bz4NhMjISKbgeVJtqNbtf5QpjZP+Bslo+UqkIt9QPnX9q095eiRRASJG1/tz6dlNr6Z5NsBiWYokp6EQ==}
     hasBin: true
+
+  remeda@2.32.0:
+    resolution: {integrity: sha512-BZx9DsT4FAgXDTOdgJIc5eY6ECIXMwtlSPQoPglF20ycSWigttDDe88AozEsPPT4OWk5NujroGSBC1phw5uU+w==}
 
   rename-overwrite@4.0.4:
     resolution: {integrity: sha512-5MC+p5npnyaJlFkwTHb0pqU2mkUkkW65ZWH8qwxcDlv+5nchtalcdzG+gaaianbWWwvwxi7vu7WSg6jdCweKug==}
@@ -11274,7 +11290,7 @@ snapshots:
       nullthrows: 1.1.1
       yargs: 17.7.2
 
-  '@react-native/community-cli-plugin@0.81.4(@react-native-community/cli@13.6.9(bufferutil@4.0.8)(encoding@0.1.13)(utf-8-validate@5.0.10))(bufferutil@4.0.8)(utf-8-validate@5.0.10)':
+  '@react-native/community-cli-plugin@0.81.4(@react-native-community/cli@13.6.9(bufferutil@4.0.8)(utf-8-validate@5.0.10))(bufferutil@4.0.8)(utf-8-validate@5.0.10)':
     dependencies:
       '@react-native/dev-middleware': 0.81.4(bufferutil@4.0.8)(utf-8-validate@5.0.10)
       debug: 4.4.1
@@ -11324,6 +11340,15 @@ snapshots:
       nullthrows: 1.1.1
       react: 19.1.0
       react-native: 0.81.4(@babel/core@7.28.0)(@react-native-community/cli@13.6.9(bufferutil@4.0.8)(encoding@0.1.13)(utf-8-validate@5.0.10))(@types/react@19.1.17)(bufferutil@4.0.8)(react@19.1.0)(utf-8-validate@5.0.10)
+    optionalDependencies:
+      '@types/react': 19.1.17
+
+  '@react-native/virtualized-lists@0.81.4(@types/react@19.1.17)(react-native@0.81.4(@babel/core@7.28.0)(@react-native-community/cli@13.6.9(bufferutil@4.0.8)(utf-8-validate@5.0.10))(@types/react@19.1.17)(bufferutil@4.0.8)(react@19.1.0)(utf-8-validate@5.0.10))(react@19.1.0)':
+    dependencies:
+      invariant: 2.2.4
+      nullthrows: 1.1.1
+      react: 19.1.0
+      react-native: 0.81.4(@babel/core@7.28.0)(@react-native-community/cli@13.6.9(bufferutil@4.0.8)(utf-8-validate@5.0.10))(@types/react@19.1.17)(bufferutil@4.0.8)(react@19.1.0)(utf-8-validate@5.0.10)
     optionalDependencies:
       '@types/react': 19.1.17
 
@@ -14557,6 +14582,12 @@ snapshots:
     dependencies:
       expo: 54.0.13(@babel/core@7.28.0)(@expo/metro-runtime@6.1.2)(bufferutil@4.0.8)(expo-router@6.0.11)(graphql@15.8.0)(react-native-webview@13.16.0(react-native@0.81.4(@babel/core@7.28.0)(@react-native-community/cli@13.6.9(bufferutil@4.0.8)(encoding@0.1.13)(utf-8-validate@5.0.10))(@types/react@19.1.17)(bufferutil@4.0.8)(react@19.1.0)(utf-8-validate@5.0.10))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.0)(@react-native-community/cli@13.6.9(bufferutil@4.0.8)(encoding@0.1.13)(utf-8-validate@5.0.10))(@types/react@19.1.17)(bufferutil@4.0.8)(react@19.1.0)(utf-8-validate@5.0.10))(react@19.1.0)(utf-8-validate@5.0.10)
       react: 19.1.0
+
+  expo-linear-gradient@15.0.7(expo@54.0.13)(react-native@0.81.4(@babel/core@7.28.0)(@react-native-community/cli@13.6.9(bufferutil@4.0.8)(encoding@0.1.13)(utf-8-validate@5.0.10))(@types/react@19.1.17)(bufferutil@4.0.8)(react@19.1.0)(utf-8-validate@5.0.10))(react@19.1.0):
+    dependencies:
+      expo: 54.0.13(@babel/core@7.28.0)(@expo/metro-runtime@6.1.2)(bufferutil@4.0.8)(expo-router@6.0.11)(graphql@15.8.0)(react-native-webview@13.16.0(react-native@0.81.4(@babel/core@7.28.0)(@react-native-community/cli@13.6.9(bufferutil@4.0.8)(encoding@0.1.13)(utf-8-validate@5.0.10))(@types/react@19.1.17)(bufferutil@4.0.8)(react@19.1.0)(utf-8-validate@5.0.10))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.0)(@react-native-community/cli@13.6.9(bufferutil@4.0.8)(encoding@0.1.13)(utf-8-validate@5.0.10))(@types/react@19.1.17)(bufferutil@4.0.8)(react@19.1.0)(utf-8-validate@5.0.10))(react@19.1.0)(utf-8-validate@5.0.10)
+      react: 19.1.0
+      react-native: 0.81.4(@babel/core@7.28.0)(@react-native-community/cli@13.6.9(bufferutil@4.0.8)(encoding@0.1.13)(utf-8-validate@5.0.10))(@types/react@19.1.17)(bufferutil@4.0.8)(react@19.1.0)(utf-8-validate@5.0.10)
 
   expo-linking@8.0.8(expo@54.0.13)(react-native@0.81.4(@babel/core@7.28.0)(@react-native-community/cli@13.6.9(bufferutil@4.0.8)(encoding@0.1.13)(utf-8-validate@5.0.10))(@types/react@19.1.17)(bufferutil@4.0.8)(react@19.1.0)(utf-8-validate@5.0.10))(react@19.1.0):
     dependencies:
@@ -18082,14 +18113,14 @@ snapshots:
       react-native: 0.81.4(@babel/core@7.28.0)(@react-native-community/cli@13.6.9(bufferutil@4.0.8)(encoding@0.1.13)(utf-8-validate@5.0.10))(@types/react@19.1.17)(bufferutil@4.0.8)(react@19.1.0)(utf-8-validate@5.0.10)
       warn-once: 0.1.1
 
-  react-native-tcp@3.3.2(react-native@0.81.4(@babel/core@7.28.0)(@react-native-community/cli@13.6.9(bufferutil@4.0.8)(encoding@0.1.13)(utf-8-validate@5.0.10))(@types/react@19.1.17)(bufferutil@4.0.8)(react@19.1.0)(utf-8-validate@5.0.10)):
+  react-native-tcp@3.3.2(react-native@0.81.4(@babel/core@7.28.0)(@react-native-community/cli@13.6.9(bufferutil@4.0.8)(utf-8-validate@5.0.10))(@types/react@19.1.17)(bufferutil@4.0.8)(react@19.1.0)(utf-8-validate@5.0.10)):
     dependencies:
       base64-js: 0.0.8
       buffer: 5.7.1
       events: 1.1.1
       ip-regex: 1.0.3
       process: 0.11.10
-      react-native: 0.81.4(@babel/core@7.28.0)(@react-native-community/cli@13.6.9(bufferutil@4.0.8)(encoding@0.1.13)(utf-8-validate@5.0.10))(@types/react@19.1.17)(bufferutil@4.0.8)(react@19.1.0)(utf-8-validate@5.0.10)
+      react-native: 0.81.4(@babel/core@7.28.0)(@react-native-community/cli@13.6.9(bufferutil@4.0.8)(utf-8-validate@5.0.10))(@types/react@19.1.17)(bufferutil@4.0.8)(react@19.1.0)(utf-8-validate@5.0.10)
       util: 0.10.4
 
   react-native-toast-message@2.3.3(react-native@0.81.4(@babel/core@7.28.0)(@react-native-community/cli@13.6.9(bufferutil@4.0.8)(encoding@0.1.13)(utf-8-validate@5.0.10))(@types/react@19.1.17)(bufferutil@4.0.8)(react@19.1.0)(utf-8-validate@5.0.10))(react@19.1.0):
@@ -18151,11 +18182,58 @@ snapshots:
       '@jest/create-cache-key-function': 29.7.0
       '@react-native/assets-registry': 0.81.4
       '@react-native/codegen': 0.81.4(@babel/core@7.28.0)
-      '@react-native/community-cli-plugin': 0.81.4(@react-native-community/cli@13.6.9(bufferutil@4.0.8)(encoding@0.1.13)(utf-8-validate@5.0.10))(bufferutil@4.0.8)(utf-8-validate@5.0.10)
+      '@react-native/community-cli-plugin': 0.81.4(@react-native-community/cli@13.6.9(bufferutil@4.0.8)(utf-8-validate@5.0.10))(bufferutil@4.0.8)(utf-8-validate@5.0.10)
       '@react-native/gradle-plugin': 0.81.4
       '@react-native/js-polyfills': 0.81.4
       '@react-native/normalize-colors': 0.81.4
       '@react-native/virtualized-lists': 0.81.4(@types/react@19.1.17)(react-native@0.81.4(@babel/core@7.28.0)(@react-native-community/cli@13.6.9(bufferutil@4.0.8)(encoding@0.1.13)(utf-8-validate@5.0.10))(@types/react@19.1.17)(bufferutil@4.0.8)(react@19.1.0)(utf-8-validate@5.0.10))(react@19.1.0)
+      abort-controller: 3.0.0
+      anser: 1.4.10
+      ansi-regex: 5.0.1
+      babel-jest: 29.7.0(@babel/core@7.28.0)
+      babel-plugin-syntax-hermes-parser: 0.29.1
+      base64-js: 1.5.1
+      commander: 12.1.0
+      flow-enums-runtime: 0.0.6
+      glob: 7.2.3
+      invariant: 2.2.4
+      jest-environment-node: 29.7.0
+      memoize-one: 5.2.1
+      metro-runtime: 0.83.3
+      metro-source-map: 0.83.3
+      nullthrows: 1.1.1
+      pretty-format: 29.7.0
+      promise: 8.3.0
+      react: 19.1.0
+      react-devtools-core: 6.1.5(bufferutil@4.0.8)(utf-8-validate@5.0.10)
+      react-refresh: 0.14.2
+      regenerator-runtime: 0.13.11
+      scheduler: 0.26.0
+      semver: 7.7.2
+      stacktrace-parser: 0.1.10
+      whatwg-fetch: 3.6.19
+      ws: 6.2.3(bufferutil@4.0.8)(utf-8-validate@5.0.10)
+      yargs: 17.7.2
+    optionalDependencies:
+      '@types/react': 19.1.17
+    transitivePeerDependencies:
+      - '@babel/core'
+      - '@react-native-community/cli'
+      - '@react-native/metro-config'
+      - bufferutil
+      - supports-color
+      - utf-8-validate
+
+  react-native@0.81.4(@babel/core@7.28.0)(@react-native-community/cli@13.6.9(bufferutil@4.0.8)(utf-8-validate@5.0.10))(@types/react@19.1.17)(bufferutil@4.0.8)(react@19.1.0)(utf-8-validate@5.0.10):
+    dependencies:
+      '@jest/create-cache-key-function': 29.7.0
+      '@react-native/assets-registry': 0.81.4
+      '@react-native/codegen': 0.81.4(@babel/core@7.28.0)
+      '@react-native/community-cli-plugin': 0.81.4(@react-native-community/cli@13.6.9(bufferutil@4.0.8)(utf-8-validate@5.0.10))(bufferutil@4.0.8)(utf-8-validate@5.0.10)
+      '@react-native/gradle-plugin': 0.81.4
+      '@react-native/js-polyfills': 0.81.4
+      '@react-native/normalize-colors': 0.81.4
+      '@react-native/virtualized-lists': 0.81.4(@types/react@19.1.17)(react-native@0.81.4(@babel/core@7.28.0)(@react-native-community/cli@13.6.9(bufferutil@4.0.8)(utf-8-validate@5.0.10))(@types/react@19.1.17)(bufferutil@4.0.8)(react@19.1.0)(utf-8-validate@5.0.10))(react@19.1.0)
       abort-controller: 3.0.0
       anser: 1.4.10
       ansi-regex: 5.0.1
@@ -18344,6 +18422,10 @@ snapshots:
   regjsparser@0.12.0:
     dependencies:
       jsesc: 3.0.2
+
+  remeda@2.32.0:
+    dependencies:
+      type-fest: 4.41.0
 
   rename-overwrite@4.0.4:
     dependencies:

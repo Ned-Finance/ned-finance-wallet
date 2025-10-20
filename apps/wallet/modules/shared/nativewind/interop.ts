@@ -2,6 +2,7 @@ import BottomSheet, {
   BottomSheetModal,
   BottomSheetView,
 } from "@gorhom/bottom-sheet";
+import { Image } from "expo-image";
 import { cssInterop } from "nativewind";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -18,5 +19,9 @@ cssInterop(BottomSheetView, {
 });
 
 cssInterop(BottomSheetModal, {
+  className: "style",
+});
+
+cssInterop(Image, {
   className: "style",
 });
