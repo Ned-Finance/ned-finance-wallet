@@ -9,3 +9,7 @@ export function randomBytes(len: number): Uint8Array {
   const arr = ExpoCrypto.getRandomBytes(len);
   return Uint8Array.from(arr);
 }
+
+export function randomUUID(): string {
+  return ExpoCrypto.randomUUID();
+}

@@ -1,11 +1,14 @@
-import * as ed25519 from "@noble/ed25519";
+import { SLIP10Node } from "@metamask/key-tree";
+import * as ed from "@noble/ed25519";
+import { sha512 } from "@noble/hashes/sha2";
 import * as bip32 from "@scure/bip32";
 import * as bip39 from "@scure/bip39";
-import { derivePath } from "ed25519-hd-key";
+// import "./crypto-setup";
 import { DerivationRegistry } from "./derivations";
 import type { Account, ChainId } from "./types";
 
-// DEMO implementation: replace with real BIP39/SLIP-0010 in production.
+ed.etc.sha512Sync = (...m) => sha512(ed.etc.concatBytes(...m));
+
 export async function deriveAddressFromMnemonic(
   reg: DerivationRegistry,
   mnemonic: string,
@@ -16,14 +19,24 @@ export async function deriveAddressFromMnemonic(
   const rule = reg.get(chainId);
   if (!rule) throw new Error(`No derivation rule for ${chainId}`);
   if (rule.curve === "ed25519") {
-    const seedHex = Buffer.from(seed).toString("hex");
-    const { key: privateKey } = derivePath(rule.path(index), seedHex);
-    const publicKey = await ed25519.getPublicKey(privateKey);
+    const node = await SLIP10Node.fromDerivationPath({
+      curve: "ed25519",
+      derivationPath: [
+        `bip39:${mnemonic}`,
+        `slip10:44'`,
+        `slip10:501'`,
+        `slip10:0'`,
+        `slip10:0'`,
+      ],
+    });
+
+    const privateKey = node.privateKeyBytes;
+
     return {
       chainId,
-      privateKey,
-      publicKey,
-      address: rule.pubToAddress(publicKey),
+      privateKey: privateKey!,
+      publicKey: ed.getPublicKey(privateKey!),
+      address: rule.pubToAddress(ed.getPublicKey(privateKey!)),
     };
   }
   if (rule.curve === "secp256k1") {

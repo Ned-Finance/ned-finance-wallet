@@ -6,12 +6,21 @@ import { Text, View } from "react-native";
 
 export function AuthLoginMnemonicInputForm({
   onContinue,
+  isValid,
+  isLoading,
 }: {
-  onContinue: () => void;
+  onContinue: (mnemonic: string, pin: string) => void;
+  isValid?: boolean | null;
+  isLoading?: boolean;
 }) {
   const { t } = useTranslation();
 
   const [mnemonic, setMnemonic] = useState("");
+  const [pin, setPin] = useState("");
+
+  const handleContinue = () => {
+    onContinue(mnemonic, pin);
+  };
 
   return (
     <View className="flex-1 items-center justify-center">
@@ -40,12 +49,37 @@ export function AuthLoginMnemonicInputForm({
           </Text>
         </Button>
       </View>
+      <View className="w-full mb-4">
+        <Text className="text-ned-muted text-sm mb-2">
+          {t("auth.login.pinLabel")}
+        </Text>
+        <TextInput
+          className="w-full"
+          placeholder={t("auth.login.pinPlaceholder")}
+          value={pin}
+          onChangeText={setPin}
+          secureTextEntry
+          maxLength={4}
+          keyboardType="numeric"
+        />
+      </View>
+
+      {isValid === false && (
+        <Text className="text-red-500 text-sm mb-4">
+          {t("auth.login.errors.invalidMnemonic")}
+        </Text>
+      )}
+
       <Button
-        // disabled={!isMnemonicValid}
+        disabled={!mnemonic || !pin || isLoading}
         variant="primary"
         className="w-full"
-        onPress={onContinue}>
-        <Text className="text-lg mr-2">{t("auth.login.button.continue")}</Text>
+        onPress={handleContinue}>
+        <Text className="text-lg mr-2">
+          {isLoading
+            ? t("auth.login.button.importing")
+            : t("auth.login.button.continue")}
+        </Text>
         <Icon
           name="ChevronRight"
           className="w-5 h-5"

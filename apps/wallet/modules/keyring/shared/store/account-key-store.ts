@@ -1,7 +1,7 @@
 import { secureStore } from "@/modules/shared/secure-store";
 import type { EncryptedKeyBlob } from "../types";
 
-const ACC_PREFIX = "ned:keyring:pk:v1:";
+const ACC_PREFIX = "ned-keyring-pk-v1-";
 
 function storageKey(address: string) {
   return `${ACC_PREFIX}${address}`;

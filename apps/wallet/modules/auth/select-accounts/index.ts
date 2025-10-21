@@ -1,1 +1,1 @@
-export { AuthSelectAccountsScreen } from "./select-accounts-screen";
+export { AuthSelectAccountsScreen } from "./screens/select-accounts-screen";

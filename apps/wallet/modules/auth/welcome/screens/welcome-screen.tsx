@@ -1,6 +1,6 @@
 import { MediaRotator } from "@/modules/shared/ui/media-rotator/media-rotator";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { AuthIndexActions } from "./components/actions";
+import { AuthIndexActions } from "../components/actions";
 
 export const AuthWelcomeScreen = () => {
   return (

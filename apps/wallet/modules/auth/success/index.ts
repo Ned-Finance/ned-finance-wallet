@@ -1,1 +1,1 @@
-export { AuthSuccessScreen } from "./success-screen";
+export { AuthSuccessScreen } from "./screens/success-screen";

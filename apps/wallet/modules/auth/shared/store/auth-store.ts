@@ -10,8 +10,17 @@ export type AuthState = {
     id: string;
     email: string;
   } | null;
+  registrationData: {
+    masterKey: Uint8Array;
+    vaultId: string;
+  } | null;
   login: (email: string, password: string) => void;
   logout: () => void;
+  setRegistrationData: (data: {
+    masterKey: Uint8Array;
+    vaultId: string;
+  }) => void;
+  clearRegistrationData: () => void;
 };
 
 // Tipo para el estado persistido (solo los campos que queremos guardar)
@@ -23,6 +32,7 @@ export const useAuthStore = create<AuthState>()(
       (set) => ({
         isAuthenticated: false,
         user: null,
+        registrationData: null,
         login: (email: string, password: string) => {
           set((state) => {
             state.isAuthenticated = true;
@@ -33,6 +43,23 @@ export const useAuthStore = create<AuthState>()(
           set((state) => {
             state.isAuthenticated = false;
             state.user = null;
+            state.registrationData = null;
+          });
+        },
+        setRegistrationData: (data: {
+          masterKey: Uint8Array;
+          vaultId: string;
+        }) => {
+          set((state) => {
+            state.registrationData = data;
+          });
+        },
+        clearRegistrationData: () => {
+          set((state) => {
+            if (state.registrationData?.masterKey) {
+              state.registrationData.masterKey.fill(0);
+            }
+            state.registrationData = null;
           });
         },
       }),

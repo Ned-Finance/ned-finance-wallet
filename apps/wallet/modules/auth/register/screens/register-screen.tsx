@@ -3,14 +3,35 @@ import { Button } from "@/modules/shared";
 import { Icon } from "@/modules/shared/ui/icons";
 import { ScreenWrapper } from "@/modules/shared/ui/screen/screen-wrapper";
 import { useRouter } from "expo-router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Text, View } from "react-native";
+import { useAuthRegistration } from "../../shared/hooks";
+import { useAuthStore } from "../../shared/store/auth-store";
 
 export const AuthRegisterScreen = () => {
   const { t } = useTranslation();
   const { mnemonic, generate } = useMnemonic();
+  const { initializeRegistration } = useAuthRegistration();
+  const { setRegistrationData } = useAuthStore();
   const router = useRouter();
+  const [isInitializing, setIsInitializing] = useState(false);
+
+  const onContinue = async () => {
+    if (!mnemonic) return;
+
+    setIsInitializing(true);
+    try {
+      const { masterKey, vaultId } = await initializeRegistration(mnemonic);
+      setRegistrationData({ masterKey, vaultId });
+      router.push("/(auth)/secure-passcode");
+    } catch (error) {
+      console.error("Failed to initialize registration:", error);
+      // TODO: Show error toast
+    } finally {
+      setIsInitializing(false);
+    }
+  };
 
   // Generate a new mnemonic on mount
   useEffect(() => {
@@ -43,12 +64,14 @@ export const AuthRegisterScreen = () => {
           </Button>
         </View>
         <Button
-          disabled={!mnemonic}
+          disabled={!mnemonic || isInitializing}
           variant="primary"
           className="w-full"
-          onPress={() => router.push("/(auth)/secure-passcode")}>
+          onPress={onContinue}>
           <Text className="text-lg mr-2">
-            {t("auth.register.button.continueToPin")}
+            {isInitializing
+              ? t("auth.register.button.initializing")
+              : t("auth.register.button.continueToPin")}
           </Text>
           <Icon
             name="ChevronRight"

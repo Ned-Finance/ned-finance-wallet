@@ -2,7 +2,7 @@
 import { secureStore } from "@/modules/shared/secure-store";
 import type { SeedVault, VaultId } from "../types";
 
-const VAULT_PREFIX = "ned:vault:";
+const VAULT_PREFIX = "ned-vault-";
 
 function vaultKey(id: VaultId) {
   return `${VAULT_PREFIX}${id}`;

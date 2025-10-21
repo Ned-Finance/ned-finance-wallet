@@ -8,7 +8,7 @@ import { FlatList, Text, View } from "react-native";
 import {
   ImportedAccount,
   ImportedAccountProps,
-} from "./components/imported-account";
+} from "../components/imported-account";
 
 export const AuthSelectAccountsScreen = () => {
   const { t } = useTranslation();

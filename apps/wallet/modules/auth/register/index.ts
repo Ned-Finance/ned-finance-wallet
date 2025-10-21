@@ -1,1 +1,1 @@
-export { AuthRegisterScreen } from "./register-screen";
+export { AuthRegisterScreen } from "./screens/register-screen";

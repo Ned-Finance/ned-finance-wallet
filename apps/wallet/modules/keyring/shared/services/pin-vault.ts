@@ -4,7 +4,7 @@ import { secureStore } from "@/modules/shared/secure-store";
 import type { WrappedMK } from "../types";
 import { unwrapMKWithPin, wrapMKWithPin } from "./crypto";
 
-const WRAPPED_MK_KEY = "ned:keyring:wrapped-mk:v1";
+const WRAPPED_MK_KEY = "ned-keyring-wrapped-mk-v1";
 
 export async function hasPinConfigured(): Promise<boolean> {
   return !!(await secureStore.getItem(WRAPPED_MK_KEY));
